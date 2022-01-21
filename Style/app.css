@@ -1,0 +1,45 @@
+/* menu bar  */
+body{
+    margin: 0;
+}
+#container{
+    display: flex;
+    justify-content: space-around;
+    background: teal;
+}
+ul{
+    display: flex;
+    
+}
+
+#quize-bar{
+    transition-duration: 0.5s;
+    margin-right: 100px;
+    padding: 10px;
+    border-radius: 10px 5px;
+    border: none;
+    color: orange;
+}
+#quize-bar:hover, #create-bar:hover{
+    
+    cursor: pointer;
+    background: rgb(160, 142, 142);
+    color: whitesmoke;
+}
+#create-bar{
+    color: orange;
+    transition-duration: 0.5s;
+    margin-right: 250px;
+    padding: 10px;
+    border-radius: 10px 5px;
+    border: none;
+}
+li{
+    list-style-type: none;
+}
+.logo{
+    width: 90px;
+    height: 70px;
+}
+
+/* ///////////////////////////////////////////////////////////// */
