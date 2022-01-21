@@ -44,15 +44,28 @@ li{
 
 /* ///////////////////////////////////////////////////////////// */
 
+/* ////// Card content //////  */
 
-/* //////// contianer ////// */
-
-.contianer{
-    width: 70%;
-    margin: auto;
+.card_content{
+    width: 50%;
+    margin:1rem auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
 }
+.content_item{
+    border-radius: 5px;
+    width: 95%;
+    height: 20vh;
+    padding: 5px;
+    color: white;
+    background-color: blueviolet;
+}
+
+/* //////// card show ////// */
+
 .card_title{
-    width: 100%;
+    width: 50%;
     margin: auto;
     text-align: center;
 }
@@ -62,8 +75,9 @@ li{
 /*/////// show Question and answers on page ///////////*/
 
 .card{
-    width: 100%;
-    padding:1rem;
+    margin: auto;
+    width: 80%;
+    padding:0.5rem;
     border-radius: 5px;
 }
 
@@ -106,7 +120,6 @@ li{
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    
 }
 .btn_next a{
     text-decoration: none;
@@ -121,4 +134,26 @@ li{
 
 .btn_next:hover{
     opacity: 80%;
+}
+
+/* //////// create button //// */
+.content_item .btn_content{
+    padding: 4px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn_edit, .btn_delete{
+    width: 1.2rem;
+    padding: 2px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+.image{
+    width: 100%;
+}
+.title_item{
+    text-align: center;
 }
