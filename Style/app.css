@@ -43,3 +43,82 @@ li{
 }
 
 /* ///////////////////////////////////////////////////////////// */
+
+
+/* //////// contianer ////// */
+
+.contianer{
+    width: 70%;
+    margin: auto;
+}
+.card_title{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+.get_title{
+    color: red;
+}
+/*/////// show Question and answers on page ///////////*/
+
+.card{
+    width: 100%;
+    padding:1rem;
+    border-radius: 5px;
+}
+
+.showQuestion{
+    margin:2rem auto; 
+    width: 60%;
+    padding: 5px;
+    border-bottom: 1px solid cadetblue;
+}
+.card_body{
+    margin: auto;
+    width: 60%;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1rem;
+}
+
+.card_item{
+    background-color: gray;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+/* //////// button on page /////// */
+
+.btn_botoom, .set_score{
+    padding: 1rem;
+    width: 60%;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    font-size: larger;
+}
+
+.btn_next{
+    background-color: rgb(6, 102, 247);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    
+}
+.btn_next a{
+    text-decoration: none;
+    color: white;
+}
+
+/* ///////// hover on select answers and click on next ////// */
+
+.card_item:hover{
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+}
+
+.btn_next:hover{
+    opacity: 80%;
+}
