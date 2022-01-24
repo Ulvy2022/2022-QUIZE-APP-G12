@@ -10,93 +10,115 @@
 <body>
     <!-- menu bar -->
     <div id="container">
-        <img class="logo" src="images/logo.png" alt="">
+        <img class="logo" src="/images/New_logo-removebg-preview.png" alt="">
         <ul>
-            <li>
-                <select name="d" id="quize-bar" >
-                    <option id="quiz" value="">QUIZ</option>
-                    <option id="grammar-quiz" value="GRAMMAR">GRAMMAR</option>
-                    <option id="knowledge-quiz" value="KNOWLEDGE">KNOWLEDGE</option>
-                </select>
+            <li id="quize-bar">
+            QUIZ
             </li>
-            <li>
-                <select id="create-bar" >
-                    <option id="create" value="">CREATE</option>
-                    <option id="grammar-create" value="GRAMMAR">GRAMMAR</option>
-                    <option id="knowledge-create" value="KNOWLEDGE">KNOWLEDGE</option>
-                </select>
+            <li  id="create-bar">
+            CREATE
             </li>
         </ul>
     </div>
-    <div class="card_content">
-        <div class="content_item">
-            <!-- //////// create button edit and delete content or question //// -->
-            <div class="btn_content">
-                <div class="btn_edit"><img src="images/edite.png" alt="" class="image"></div>
-                <div class="btn_delete"><img src="images/delete.png" alt="" class="image"></div>
-            </div>
-            <h3 class="title_item">Present SIMPLE</h3>
+
+    <!-- body container -->
+    <div class="body_container" id="banner">
+        <div class="text_homepage">
+            <h1> <span>Hello,</span> <span class="span1">Welcome to our</span> quiz app</h1>
+            <h2>This application is developed by Group 12</h2>
         </div>
-        <div class="content_item">
-            <div class="btn_content">
-                <div class="btn_edit"><img src="images/edite.png" alt="" class="image"></div>
-                <div class="btn_delete"><img src="images/delete.png" alt="" class="image"></div>
-            </div>
-            <h3 class="title_item">Present SIMPLE</h3>
-        </div>
-        <div class="content_item">
-            <div class="btn_content">
-                <div class="btn_edit"><img src="images/edite.png" alt="" class="image"></div>
-                <div class="btn_delete"><img src="images/delete.png" alt="" class="image"></div>
-            </div>
-            <h3 class="title_item">Present SIMPLE</h3>
-        </div>
-        <div class="content_item">
-            <div class="btn_content">
-                <div class="btn_edit"><img src="images/edite.png" alt="" class="image"></div>
-                <div class="btn_delete"><img src="images/delete.png" alt="" class="image"></div>
-            </div>
-            <h3 class="title_item">Present SIMPLE</h3>
-        </div>
-        <div class="content_item">
-            <div class="btn_content">
-                <div class="btn_edit"><img src="images/edite.png" alt="" class="image"></div>
-                <div class="btn_delete"><img src="images/delete.png" alt="" class="image"></div>
-            </div>
-            <h3 class="title_item">Present SIMPLE</h3>
-        </div>
-        <div class="content_item">
-            <div class="btn_content">
-                <div class="btn_edit"><img src="images/edite.png" alt="" class="image"></div>
-                <div class="btn_delete"><img src="images/delete.png" alt="" class="image"></div>
-            </div>
-            <h3 class="title_item">Present SIMPLE</h3>
+        <div class="banner">
+            <img src="/images/banner-quiz-removebg-preview.png" alt="">
         </div>
     </div>
 
-    <!-- create card for show question -->
-    <div class="card">
-        <div class="card_title"><span class="span_title">Quiz: </span><span class="get_title">PAST SIMPLE</span></div>
-        <div class="set_score"><span class="text_score">Score: </span><span class="check_score"> 00/ </span><span class="total_score"> 100</span></div>
-        <!-- create form contianer question and Answer -->
-        <form action="#">
-            <!--------- show question -------->
-            <div class="showQuestion" id="next">How are you?</div>
-            <!-- create card body to contian class item that show Answer -->
-            <div class="card_body">
-                <div class="card_item">Answer1</div>
-                <div class="card_item">Answer2</div>
-                <div class="card_item">Answer3</div>
-                <div class="card_item">Answer4</div>
-            </div>
-            <!-- create button click on next for link to next session  -->
-            <div class="btn_botoom">
-                <button class="btn_next"><a href="#next"> NEXT</a></button>
-            </div>
-        </form>
+    <!-- start quiz -->
+    <div class="quiz_box" id="start_quiz">
+        <div class="quiz_header">
+            <h3>Quiz: Web-Development</h3> 
+        </div>
+        <div class="quiz_footer" id="btn-start">
+        Start
+        </div>
     </div>
+
+    <!-- quiz-container -->
+    <div class="quiz-container" id="quiz">
+        <h4 class="showScore">Score: <span id="getScore"> 00</span><span>/</span> <span id="totalScore">100</span></h4>
+        <div class="quiz-header">
+        
+            <h2 id="question">Question Text</h2>
+            <ul>
+                <li>
+                <input type="radio" name="answer" id="a" class="answer">
+                <label for="a" id="a_text">Answer</label>
+                
+                </li>
+
+                <li>
+                <input type="radio" name="answer" id="b" class="answer">
+                <label for="b" id="b_text">Answer</label>
+                </li>
+                <li>
+                <input type="radio" name="answer" id="c" class="answer">
+                <label for="c" id="c_text">Answer</label>
+                </li>
+
+                <li>
+                <input type="radio" name="answer" id="d" class="answer">
+                <label for="d" id="d_text">Answer</label>
+                </li>
+            </ul>
+        </div>
+        <button id="submit">NEXT</button>
+  </div>
+
+   <!-- create quiz -->
+   <div class="form-container" id="createForm">
+    <div class="title">
+        <h1>Quiz:</h1>
+        <div >
+            <input type="text" placeholder="Write your title quiz" class="form-title">
+        </div>
+
+    </div>
+    <div class="form-group">
+        <form>
+       
+            
+            <div class="question">
+                <input type="text" placeholder="Write your question" class=" form-custom">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Answer 1" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Answer 2" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Answer 3" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Answer 4" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <input type="text" placeholder="Write your correct answer" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Scores" class="form-control">
+            </div>
+            <div class="btn-center">
+                <button class="btn-save" id="save">Save</button>
+                <button class="btn-save" id="next">Next</button>
+            </div>
     
-    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+        </form>
+
+    </div>
+
+</div>
+
     <script src="JavaScript/App.js"></script>
 </body>
 </html>
