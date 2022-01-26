@@ -130,7 +130,7 @@ function create_display(event) {
     div_correct.appendChild(corr);
     showQuestion.appendChild(div_correct);
     
-    container.appendChild(showQuestion);
+    document.body.appendChild(showQuestion);
 
     // clear all question after click on btn add
     var getA1 = document.getElementById("a1").value = "";
