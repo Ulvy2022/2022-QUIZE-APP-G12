@@ -167,7 +167,7 @@ var getValueFromQuiz = [];
 var getValueAsDict = {};
 
 // btn for selte quiz
-let getCreateValue = document.getElementById("create");
+let getCreateValue = document.getElementById("create-bar");
 getCreateValue.addEventListener("click", show_quiz);
 
 // btn-add
