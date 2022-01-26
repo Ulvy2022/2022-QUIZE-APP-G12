@@ -174,7 +174,7 @@ button:focus{
   box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.3);
   width: 720px;
   margin: 20px auto;
-  background: #e1bee7;
+  background-color: #e1bee7;
   border-radius: 15px;
   opacity: 0.8;
 
@@ -198,6 +198,7 @@ button:focus{
 
 .form-group{
   padding: 10px;
+  margin-left: 20px;
 
 }
 .form-control:hover{
@@ -227,15 +228,20 @@ button:focus{
   display: flex;
   justify-content: space-around;
 }
-.btn-save{
-  margin: 10px;
+.btn-center p{
+  padding: 10px 60px;
   border: none;
   font-style: 17px;
   text-transform: capitalize;
   color: black;
   background-color: #7b1fa2;
   border-radius: 5px;
+  cursor: pointer;
 }
+.btn-center p:hover{
+  color: white;
+}
+
 
 .form-title{
   padding: 5px;
@@ -250,11 +256,6 @@ button:focus{
 .form-title::placeholder{
   color: rgb(44, 43, 43);
 
-}
-
-.btn-save:hover{
-  cursor: pointer;
-  color: black;
 }
 
 /* body_container */
