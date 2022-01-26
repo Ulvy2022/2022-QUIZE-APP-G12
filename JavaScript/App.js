@@ -220,7 +220,5 @@ getCreateValue.addEventListener("click", show_quiz);
 let btn_next = document.querySelector(".next");
 btn_next.addEventListener("click",create_display)
 
-// btn save data
-let s = document.querySelector(".save");
-s.addEventListener("click",clearQuesAns)
+
 

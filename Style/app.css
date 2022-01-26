@@ -243,21 +243,6 @@ button:focus{
 }
 
 
-.form-title{
-  padding: 5px;
-  border: none;
-  margin-top: 25px;    
-  margin-left: 10px;
-  outline: none;
-  border-bottom: 1px solid #e1bee7;
-  background: #9c27b0;
-  text-transform: capitalize;
-}
-.form-title::placeholder{
-  color: rgb(44, 43, 43);
-
-}
-
 /* body_container */
 .body_container{
   width: 100%;
