@@ -13,14 +13,12 @@ body{
 #container{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background:#9c27b0 ;
   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 1);
 }
 #container ul{
   display: flex;
-
-  
-  
 }
 #container li{
   width: 100px;
@@ -33,6 +31,7 @@ body{
   border: none;
   color: black;
   list-style-type: none;
+  padding: 10px;
 }
 #container #quize-bar:hover, #create-bar:focus{
   background-color: #a28e1f;
@@ -48,76 +47,56 @@ body{
 #container .logo{
   width: 90px;
   margin-left: 100px;
+  height: 85px;
 }
-
 
 
 /*quiz-container​*/
-
 .quiz-container{
-  display: none;
-  margin: 20px auto;
   background-color: #e1bee7;
+  display: none;
   border-radius: 10px;
   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
-  width: 700px;
-  overflow: hidden;
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.3);
+  width: 60%;
+  margin: 20px auto;
 }
-.quiz-header{
-  padding: 1rem;
+.quiz-container .quiz-header{
+  padding: 4rem;
 }
 
-.showScore{
+.quiz-container .showScore{
   display: flex;
   justify-content: flex-end;
   width: 70%;
   margin:2rem auto;
-  color: black;
 }
 
-h2{
+.quiz-container h2{
   padding: 1rem;
   text-align: center;
   margin: 0;
 }
 
-ul{
+.quiz-container ul{
   list-style-type: none;
   padding: 0;
-  display: grid;
-  grid-template-columns: auto auto;
+  
 }
 
-ul li{
+.quiz-container ul li{
   font-size: 1rem;
   margin: 1rem;
-  
 }
 
-input[type="radio"]{
-  display: none;
-}
-ul li label{
+.quiz-container ul li label{
   border-radius: 6px;
-  font-family: sans-serif;
-  background-color: #ab47bc;
   height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
   cursor: pointer;
-  padding: 5px;
-  color: white;
-}
-ul li label:hover{
-  
-  background-color: #7b1fa2;
+  padding: 10px;
 }
 
-button{
-  background-color: #8e24aa ;
+.quiz-container button{
+  background-color: #7b1fa2;
   color: #fff;
   border: none;
   display: block;
@@ -128,12 +107,62 @@ button{
   padding: 1.3rem;
 }
 button:hover{
-  background-color: #6a1b9a;
+  background-color: #9c27b0;
 }
 button:focus{
   outline: none;
-  background-color: #6a1b9a;
+  background-color: #7b1fa2;
 }
+
+.hide{
+  display: none;
+}
+
+/* / ///////////// VIEW QUIZ //////////// / */
+
+.viewAnswers{
+  /* display: none; */
+  width: 60%;
+  margin:2rem auto;
+  box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+}
+#viewQ{
+  text-align: center;
+}
+.ul-ViewsAnswers{
+  border-top: 1px solid #000;
+  border-left: 5px solid rgb(252, 1, 1);
+  margin: 1rem 0;
+  border-radius: 10px;
+  padding: 10px;
+  
+
+}
+
+.li-answer{
+  border-radius: 10px;
+  margin: 2px;
+  padding: 20px;
+  list-style: none;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  
+}
+
+#viewAll-answer{
+  background-color: #44b927;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: larger;
+  border: none;
+  margin: 10px 44%;
+
+}
+.correctAnswerAll{
+  text-align: center;
+  
+}
+
 
 /* start quiz */
 .quiz_box{
@@ -169,6 +198,10 @@ button:focus{
 
 
 /* create quiz */
+.container-form-showQuestion{
+  width: 100%;
+  
+}
 .form-container{
   display: none;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.3);
@@ -237,6 +270,7 @@ button:focus{
   background-color: #7b1fa2;
   border-radius: 5px;
   cursor: pointer;
+  font-family: sans-serif;
 }
 .btn-center p:hover{
   color: white;
@@ -249,11 +283,10 @@ button:focus{
   height: 80vh;
   display: flex;
   justify-content: space-between;
-  /* background-color: blueviolet; */
+ 
 }
 .text_homepage{
   width: 50%;
-  /* background-color: brown; */
   font-family: 'Dongle', sans-serif;
   text-align: center;
   
@@ -282,7 +315,7 @@ button:focus{
 
 /* <!-- show question view --> */
 .show-que{
-  
+  font-family: sans-serif;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.3);
   border-left: 6px solid #7b1fa2;
   background-color: #e1bee7;
@@ -290,12 +323,12 @@ button:focus{
   width: 53%;
   margin:10px  auto;
   padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 .show-que div{
   padding: 10px 20px;
 }
 .show-que div p{
   border-bottom: 1px solid #ba66df;
-  padding: 10px;
+  padding: 5px 0;
+  font-size: 20px;
 }
