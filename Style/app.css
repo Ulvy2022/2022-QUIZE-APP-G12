@@ -228,7 +228,7 @@ button:focus{
   display: flex;
   justify-content: space-around;
 }
-.btn-center p{
+.btn-center .next{
   padding: 10px 60px;
   border: none;
   font-style: 17px;
