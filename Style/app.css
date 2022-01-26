@@ -303,19 +303,14 @@ button:focus{
   background-color: #e1bee7;
   border-radius: 10px;
   width: 53%;
-  margin: auto;
+  margin:10px  auto;
+  padding-bottom: 10px;
   margin-bottom: 20px;
 }
 .show-que div{
-  padding: 0.5rem 2rem;
+  padding: 10px 20px;
 }
-.show-que div #q_tion{
-  border-bottom: 1px solid #c266e9;
-  padding: 5px;
-}
-
-.show-que div .rad{
-  font-size: 1.2rem;
-  margin: 0 0 15px 10px;
-  
+.show-que div p{
+  border-bottom: 1px solid #ba66df;
+  padding: 10px;
 }
