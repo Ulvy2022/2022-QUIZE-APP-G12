@@ -68,7 +68,6 @@ function ifEmpty() {
         title: 'Oops...',
         text: 'Fill the form first...!',
         timer: 5000
-        
       })
 }
 var input_all = false;
@@ -82,7 +81,7 @@ function if_empty () {
     var get_Q = document.getElementById("Que").value ;
     var correctAnswer = document.getElementById("correct_Ans").value ;
 
-    if (getA1 == "" || getA2 == "" || getA3 == "" || getA4 == ""){
+    if (getA1 == "" || getA2 == "" || getA3 == "" || getA4 == "" || correctAnswer==""){
         ifEmpty();
         input_all = true;
         ifCorrect = true;
@@ -94,25 +93,24 @@ function if_empty () {
 }
 
 
-
-
-
-
 // get value from from-container
 var container = document.querySelector(".form-container");
 var containerAll=document.querySelector('.container-form-showQuestion')
 container.style.display = "none";
 
 var showQue = document.querySelector(".show-que");
-// showQue.style.display = "none"
+
 
 var formGroup = document.querySelector(".form-group");
 
+/////////// FUNCTION ADD QUESTION ADN ANSWER ///////
 
 function create_display(event) {
     event.preventDefault();
     if_empty ();
-    // get data from answer and question
+
+    ////////////// GET VALUE FROM INPUT //////////////////
+
     var getA1 = document.getElementById("a1").value;
     var getA2 = document.getElementById("a2").value;
     var getA3 = document.getElementById("a3").value;
@@ -120,13 +118,8 @@ function create_display(event) {
     var get_Q = document.getElementById("Que").value;
     var correctAnswer = document.getElementById("correct_Ans").value;
     
-
-   
-
-    // check if match answer
+  //////////// CHECK INPUT QUESTION AND ANSWERS ////////////////////////
     if(input_all==false){
-
-    
             let div_showQuestion=document.createElement('div')
             let showQuestion = document.createElement("div");
             showQuestion.className = "show-que";
@@ -181,42 +174,33 @@ function create_display(event) {
             div_correct.appendChild(corr);
             showQuestion.appendChild(div_correct);
             div_showQuestion.appendChild(showQuestion)
+            containerAll.appendChild(showQuestion);
+            console.log(arrayOfDict)
             
-            // containerAll.appendChild(div_showQuestion);
-            if (ifCorrect == true){
-
-                containerAll.appendChild(showQuestion);
-                // append data into dict and append dict into arrayofdict
-                // dict = {question:get_Q, a:getA1, b:getA2, c:getA3, d:getA4, correct:correctAnswer.toLowerCase()};
-                // arrayOfDict.push(dict);
-                console.log(arrayOfDict)
-            
-            }
             dict = {question:get_Q, a:getA1, b:getA2, c:getA3, d:getA4, correct:correctAnswer.toLowerCase()};
             arrayOfDict.push(dict);
+            
     }
     input_all = false;
-
-    // clear all question after click on btn add
     clearForm();
     document.getElementById("totalScore").innerText=arrayOfDict.length*25
-    console.log(arrayOfDict)
-    
-
+    // clear all question after click on btn add
 }
-// clear form
+
+
+////////// FUNCTION DISCLEAR INPUT //////////////
+
 function clearForm(){
-    var getA1 = document.getElementById("a1").value = "";
-    var getA2 = document.getElementById("a2").value = "";
-    var getA3 = document.getElementById("a3").value = "";
-    var getA4 = document.getElementById("a4").value = "";
-    var get_Q = document.getElementById("Que").value = "";
-    var correctAnswer = document.getElementById("correct_Ans").value = "";
+    document.getElementById("a1").value = "";
+    document.getElementById("a2").value = "";
+    document.getElementById("a3").value = "";
+    document.getElementById("a4").value = "";
+    document.getElementById("Que").value = "";
+    document.getElementById("correct_Ans").value = "";
 }
 
 // show quiz form for create 
 function showFormCreateQuestion(event) {
-
     event.preventDefault();
     container.style.display = "block";
 }
@@ -225,12 +209,10 @@ function showFormCreateQuestion(event) {
 // get value from question
 
 // get vaue from q & a
-// var correct = document.getElementById("correct_Ans");
+
 var get_Q = document.querySelector(".form-custom");
 var get_A = document.querySelectorAll(".form-control");
-// console.log(correct)
-// store information
-// var arrayOfDict = []
+
 var dict = {};
 
 // gett value from question
@@ -246,49 +228,12 @@ getCreateValue.addEventListener("click", showFormCreateQuestion);
 let btn_next = document.querySelector(".next");
 btn_next.addEventListener("click",create_display)
 
+//////////////// ARRAY OBJECT OF DATA STORAGE //////////////
 
-
-
-// play quiz and view answer
 const arrayOfDict = []
-// const arrayOfDict = [
-//     {
-//         question: "Which language runs in a web browser?",
-//         a: "Java",
-//         b: "C",
-//         c: "Python",
-//         d: "javascript",
-//         correct: "d",
-//     },
-//     {
-//         question: "What does CSS stand for?",
-//         a: "Central Style Sheets",
-//         b: "Cascading Style Sheets",
-//         c: "Cascading Simple Sheets",
-//         d: "Cars SUVs Sailboats",
-//         correct: "b",
-       
-//     },
-//     {
-//         question: "What does HTML stand for?",
-//         a: "Hypertext Markup Language",
-//         b: "Hypertext Markdown Language",
-//         c: "Hyperloop Machine Language",
-//         d: "Helicopters Terminals Motorboats Lamborginis",
-//         correct: "a",
-//     },
-//     {
-//         question: "What year was JavaScript launched?",
-//         a: "1996",
-//         b: "1995",
-//         c: "1994",
-//         d: "none of the above",
-//         correct: "b",
-//     },
-// ];
 
 
-///////// DECLEAR FILE FROM HTML ///////////
+///////// CALL TO PLAY QUIZ ///////////
 
 const quiz= document.getElementById('quiz')
 const answerEls = document.querySelectorAll('.answer')
@@ -297,9 +242,7 @@ const a_text = document.getElementById('a_text')
 const b_text = document.getElementById('b_text')
 const c_text = document.getElementById('c_text')
 const d_text = document.getElementById('d_text')
-
 var getscore=document.getElementById("getScore")
-
 
 const submitBtn = document.getElementById('submit')
 
@@ -307,11 +250,28 @@ let currentQuiz = 0
 
 let score = 0
 
+///////////////////////////////////////
+let indexAnswer=[]
+
+function getRightAnswer(index){
+    indexAnswer.push(index)
+    
+}
+
+let wrongAnswers=[]
+function checkWrongAnswers(wrong){
+    wrongAnswers.push(wrong)
+    getRightAnswer()
+    
+}
+
 //////////////// VIEW QUIZ /////////////////////
 
 var viewQuizs=document.getElementById("viewquiz")
-
 function displayQuiz(){
+    
+    checkWrongAnswers()
+    
     for (i=0;i<arrayOfDict.length;i++){
         let ul=document.createElement("div")
         ul.className="ul-ViewsAnswers"
@@ -332,36 +292,47 @@ function displayQuiz(){
         li_a2.textContent=arrayOfDict[i].b
         li_a3.textContent=arrayOfDict[i].c
         li_a4.textContent=arrayOfDict[i].d
+        ///////////// CHECK GOOD ANSWER ////////////
+
+        for (u of indexAnswer){
+            if (u===i){
+                ul.style.border="green solid"
+            }
+        }
+
+        /////// CHECK BAD ANSWERS ////////////
+        
+
+        // ////////////////////////////////////////
         if (arrayOfDict[i].correct.toLowerCase()=="a"){
             li_a1.style.backgroundColor="green"
-            li_a2.style.backgroundColor="red"
-            li_a3.style.backgroundColor="red"
-            li_a4.style.backgroundColor="red"
-  
+            
         }else if (arrayOfDict[i].correct.toLowerCase()=="b"){
 
             li_a2.style.backgroundColor="green"
-            li_a3.style.backgroundColor="red"
-            li_a4.style.backgroundColor="red"
-            li_a1.style.backgroundColor="red"
-
+           
         }else if (arrayOfDict[i].correct.toLowerCase()=="c"){
             li_a3.style.backgroundColor="green"
-            li_a2.style.backgroundColor="red"
-            li_a4.style.backgroundColor="red"
-            li_a1.style.backgroundColor="red"
-
            
         }else if (arrayOfDict[i].correct.toLowerCase()=="d"){
             
-            li_a4.style.backgroundColor="green"
-            li_a3.style.backgroundColor="red"
-            li_a2.style.backgroundColor="red"
-            li_a1.style.backgroundColor="red"
-
-           
+            li_a4.style.backgroundColor="green"  
         }
-        
+        ///////////////////// CHECK WRONG ANSWER /////////////////
+        if (i<wrongAnswers.length-1){
+            if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='a'){
+                li_a1.style.backgroundColor="red"
+            
+            }else if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='b'){
+                li_a2.style.backgroundColor="red"
+                
+            }else if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='c'){
+                li_a3.style.backgroundColor="red"
+            }else if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='d'){
+                li_a4.style.backgroundColor="red"
+            }
+        }
+
         ul.appendChild(h3)
         ul.appendChild(li_a1)
         ul.appendChild(li_a2)
@@ -373,13 +344,6 @@ function displayQuiz(){
     viewQuizs.classList.remove("hide")
     btn_viewsQuizes.classList.add="hide"
 }
-
-
-
-
-//////////////////////////////////////////
-
-
 
 /////////// FUNCTION DISPLAY QUIZ /////////////
 
@@ -397,6 +361,7 @@ function loadQuiz() {
 }
 
 /////////// CHECK SELECT ANSWERS ////////
+
 function getSelected() {
     let answer
     answerEls.forEach(answerEl => {
@@ -413,16 +378,21 @@ function deSelected(){
 
 ////////// CHECK BUTTON SUBMIT /////////////////
 
-// let totalScore=arrayOfDict.length*25
 submitBtn.addEventListener('click', () => {
     const answer = getSelected()
+    let getWrongAnswer={}
     if(answer) {
        if(answer === arrayOfDict[currentQuiz].correct) {
-        //    arrayCorrectAnswer.push(currentQuiz)
+        
            score+=25
            getscore.textContent=score
+           getRightAnswer(currentQuiz)
            
            //    console.log(arrayCorrectAnswer)
+        }else if(answer!=arrayOfDict[currentQuiz].answer){
+            getWrongAnswer.index=currentQuiz
+            getWrongAnswer.id=answer
+            checkWrongAnswers(getWrongAnswer)
         }
         currentQuiz++
         
@@ -437,15 +407,16 @@ submitBtn.addEventListener('click', () => {
            
 
        }
-       
+     
     }else{
         swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Please select the answer!',
-            timer: 5000
+            timer: 2000
             
           })
+        
     }
 })
 //////////// BUTTON CLICK SHOW VIEW QUIZ /////////////
