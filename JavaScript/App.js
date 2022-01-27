@@ -8,6 +8,7 @@ function displayStartQuze(){
     quiz.style.display='none'
     viewQuizs.style.display='none'
     start_quiz.style.display='block'
+    loadQuiz()
     
 }
 let start_quiz=document.getElementById('start_quiz')
@@ -48,7 +49,49 @@ let clickOnBtnCreate=document.getElementById('create-bar')
 clickOnBtnCreate.addEventListener('click', displayCreateForm)
 
 
+// alert if emtyp input
+// sweet alert
+function show_Aaddes () {
+    swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Your question has been saved',
+        showConfirmButton: false,
+        timer: 5000
+      })
+}
 
+// if empty
+function ifEmpty() {
+    swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Fill the form first...!',
+        timer: 5000
+        
+      })
+}
+var input_all = false;
+var ifCorrect=false
+// check if empty
+function if_empty () {
+    var getA1 = document.getElementById("a1").value ;
+    var getA2 = document.getElementById("a2").value ;
+    var getA3 = document.getElementById("a3").value ;
+    var getA4 = document.getElementById("a4").value ;
+    var get_Q = document.getElementById("Que").value ;
+    var correctAnswer = document.getElementById("correct_Ans").value ;
+
+    if (getA1 == "" || getA2 == "" || getA3 == "" || getA4 == ""){
+        ifEmpty();
+        input_all = true;
+        ifCorrect = true;
+    }
+    else {
+        show_Aaddes();
+    }
+    
+}
 
 
 
@@ -68,6 +111,7 @@ var formGroup = document.querySelector(".form-group");
 
 function create_display(event) {
     event.preventDefault();
+    if_empty ();
     // get data from answer and question
     var getA1 = document.getElementById("a1").value;
     var getA2 = document.getElementById("a2").value;
@@ -75,68 +119,88 @@ function create_display(event) {
     var getA4 = document.getElementById("a4").value;
     var get_Q = document.getElementById("Que").value;
     var correctAnswer = document.getElementById("correct_Ans").value;
+    
 
-    // append data into dict and append dict into arrayofdict
-    dict = {question:get_Q, a:getA1, b:getA2, c:getA3, d:getA4, correct:correctAnswer};
-    arrayOfDict.push(dict);
+   
 
     // check if match answer
-    
-    let showQuestion = document.createElement("div");
-    showQuestion.className = "show-que";
-    
-    let div_P = document.createElement("div");
-    let P_div = document.createElement("p");
-    P_div.textContent = get_Q;
-    P_div.className = "q_tion";
-    div_P.appendChild(P_div);
-
-    showQuestion.appendChild(div_P);
-
-    let div_An1 = document.createElement("div");
-    let input_an1 = document.createElement("span");
-    input_an1.type = "text";
-    input_an1.className = "rad1";
-    input_an1.textContent ="Answer 1 : "+ getA1;
-    div_An1.appendChild(input_an1)
-    showQuestion.appendChild(div_An1);
-
-
-    let div_An2 = document.createElement("div");
-    let input_an2 = document.createElement("span");
-    input_an2.type = "text"
-    input_an2.className = "rad1";
-    input_an2.textContent ="Answer 2 : "+ getA2;
-    div_An2.appendChild(input_an2)
-    showQuestion.appendChild(div_An2);
-
-    let div_An3 = document.createElement("div");
-    let input_an3 = document.createElement("span");
-    input_an3.type = "text";
-    input_an3.className = "rad1";
-    input_an3.textContent = "Answer 3 : "+getA3;
-    div_An3.appendChild(input_an3)
-    showQuestion.appendChild(div_An3);
+    if(input_all==false){
 
     
-    let div_An4 = document.createElement("div");
-    let input_an4 = document.createElement("span");
-    input_an4.type = "text";
-    input_an4.className = "rad1";
-    input_an4.textContent = "Answer 4 : "+getA4;
-    div_An4.appendChild(input_an4)
-    showQuestion.appendChild(div_An4);
+            let div_showQuestion=document.createElement('div')
+            let showQuestion = document.createElement("div");
+            showQuestion.className = "show-que";
+            
 
-    let div_correct = document.createElement("div");
-    let corr = document.createElement("span");
-    corr.textContent ="Correct Answer : "+ correctAnswer;
-    corr.className = "rad1"
-    div_correct.appendChild(corr);
-    showQuestion.appendChild(div_correct);
-    containerAll.appendChild(showQuestion);
+            let div_P = document.createElement("div");
+            let P_div = document.createElement("p");
+            P_div.textContent = get_Q;
+            P_div.className = "q_tion";
+            div_P.appendChild(P_div);
+
+            showQuestion.appendChild(div_P);
+
+            let div_An1 = document.createElement("div");
+            let input_an1 = document.createElement("span");
+            input_an1.type = "text";
+            input_an1.className = "rad1";
+            input_an1.textContent ="Answer A : "+ getA1;
+            div_An1.appendChild(input_an1)
+            showQuestion.appendChild(div_An1);
+
+
+            let div_An2 = document.createElement("div");
+            let input_an2 = document.createElement("span");
+            input_an2.type = "text"
+            input_an2.className = "rad1";
+            input_an2.textContent ="Answer B : "+ getA2;
+            div_An2.appendChild(input_an2)
+            showQuestion.appendChild(div_An2);
+
+            let div_An3 = document.createElement("div");
+            let input_an3 = document.createElement("span");
+            input_an3.type = "text";
+            input_an3.className = "rad1";
+            input_an3.textContent = "Answer C : "+getA3;
+            div_An3.appendChild(input_an3)
+            showQuestion.appendChild(div_An3);
+
+            
+            let div_An4 = document.createElement("div");
+            let input_an4 = document.createElement("span");
+            input_an4.type = "text";
+            input_an4.className = "rad1";
+            input_an4.textContent = "Answer D : "+getA4;
+            div_An4.appendChild(input_an4)
+            showQuestion.appendChild(div_An4);
+
+            let div_correct = document.createElement("div");
+            let corr = document.createElement("span");
+            corr.textContent ="Correct Answer : "+ correctAnswer;
+            corr.className = "rad1"
+            div_correct.appendChild(corr);
+            showQuestion.appendChild(div_correct);
+            div_showQuestion.appendChild(showQuestion)
+            
+            // containerAll.appendChild(div_showQuestion);
+            if (ifCorrect == true){
+
+                containerAll.appendChild(showQuestion);
+                // append data into dict and append dict into arrayofdict
+                // dict = {question:get_Q, a:getA1, b:getA2, c:getA3, d:getA4, correct:correctAnswer.toLowerCase()};
+                // arrayOfDict.push(dict);
+                console.log(arrayOfDict)
+            
+            }
+            dict = {question:get_Q, a:getA1, b:getA2, c:getA3, d:getA4, correct:correctAnswer.toLowerCase()};
+            arrayOfDict.push(dict);
+    }
+    input_all = false;
 
     // clear all question after click on btn add
     clearForm();
+    document.getElementById("totalScore").innerText=arrayOfDict.length*25
+    console.log(arrayOfDict)
     
 
 }
@@ -161,10 +225,10 @@ function showFormCreateQuestion(event) {
 // get value from question
 
 // get vaue from q & a
-var correct = document.getElementById("correct_Ans").value;
+// var correct = document.getElementById("correct_Ans");
 var get_Q = document.querySelector(".form-custom");
 var get_A = document.querySelectorAll(".form-control");
-
+// console.log(correct)
 // store information
 // var arrayOfDict = []
 var dict = {};
@@ -186,44 +250,44 @@ btn_next.addEventListener("click",create_display)
 
 
 // play quiz and view answer
-
-const arrayOfDict = [
-    {
-        question: "Which language runs in a web browser?",
-        a: "Java",
-        b: "C",
-        c: "Python",
-        d: "javascript",
-        correct: "d",
-    },
-    {
-        question: "What does CSS stand for?",
-        a: "Central Style Sheets",
-        b: "Cascading Style Sheets",
-        c: "Cascading Simple Sheets",
-        d: "Cars SUVs Sailboats",
-        correct: "b",
+const arrayOfDict = []
+// const arrayOfDict = [
+//     {
+//         question: "Which language runs in a web browser?",
+//         a: "Java",
+//         b: "C",
+//         c: "Python",
+//         d: "javascript",
+//         correct: "d",
+//     },
+//     {
+//         question: "What does CSS stand for?",
+//         a: "Central Style Sheets",
+//         b: "Cascading Style Sheets",
+//         c: "Cascading Simple Sheets",
+//         d: "Cars SUVs Sailboats",
+//         correct: "b",
        
-    },
-    {
-        question: "What does HTML stand for?",
-        a: "Hypertext Markup Language",
-        b: "Hypertext Markdown Language",
-        c: "Hyperloop Machine Language",
-        d: "Helicopters Terminals Motorboats Lamborginis",
-        correct: "a",
-    },
-    {
-        question: "What year was JavaScript launched?",
-        a: "1996",
-        b: "1995",
-        c: "1994",
-        d: "none of the above",
-        correct: "b",
-    },
-];
+//     },
+//     {
+//         question: "What does HTML stand for?",
+//         a: "Hypertext Markup Language",
+//         b: "Hypertext Markdown Language",
+//         c: "Hyperloop Machine Language",
+//         d: "Helicopters Terminals Motorboats Lamborginis",
+//         correct: "a",
+//     },
+//     {
+//         question: "What year was JavaScript launched?",
+//         a: "1996",
+//         b: "1995",
+//         c: "1994",
+//         d: "none of the above",
+//         correct: "b",
+//     },
+// ];
 
-let totalScore=arrayOfDict.length*25
+
 ///////// DECLEAR FILE FROM HTML ///////////
 
 const quiz= document.getElementById('quiz')
@@ -236,7 +300,7 @@ const d_text = document.getElementById('d_text')
 
 var getscore=document.getElementById("getScore")
 
-document.getElementById("totalScore").textContent=totalScore
+
 const submitBtn = document.getElementById('submit')
 
 let currentQuiz = 0
@@ -315,18 +379,21 @@ function displayQuiz(){
 
 //////////////////////////////////////////
 
-loadQuiz()
+
 
 /////////// FUNCTION DISPLAY QUIZ /////////////
 
 function loadQuiz() {
     deSelected()
-    const currentQuizData = arrayOfDict[currentQuiz]
-    questionEl.textContent = currentQuizData.question
-    a_text.textContent = currentQuizData.a
-    b_text.textContent = currentQuizData.b
-    c_text.textContent = currentQuizData.c
-    d_text.textContent = currentQuizData.d
+    console.log(arrayOfDict)
+    if(arrayOfDict.length>0){
+        const currentQuizData = arrayOfDict[currentQuiz]
+        questionEl.textContent = currentQuizData.question
+        a_text.textContent = currentQuizData.a
+        b_text.textContent = currentQuizData.b
+        c_text.textContent = currentQuizData.c
+        d_text.textContent = currentQuizData.d
+    }
 }
 
 /////////// CHECK SELECT ANSWERS ////////
@@ -346,6 +413,7 @@ function deSelected(){
 
 ////////// CHECK BUTTON SUBMIT /////////////////
 
+// let totalScore=arrayOfDict.length*25
 submitBtn.addEventListener('click', () => {
     const answer = getSelected()
     if(answer) {
@@ -353,13 +421,15 @@ submitBtn.addEventListener('click', () => {
         //    arrayCorrectAnswer.push(currentQuiz)
            score+=25
            getscore.textContent=score
-        //    console.log(arrayCorrectAnswer)
-       }
-       currentQuiz++
-
-       if(currentQuiz < arrayOfDict.length) {
-           loadQuiz()
-       } else {
+           
+           //    console.log(arrayCorrectAnswer)
+        }
+        currentQuiz++
+        
+        if(currentQuiz < arrayOfDict.length) {
+            loadQuiz()
+        } else {
+           
            btn_viewsQuizes.classList.remove("hide")
            viewQuizs.style.display='block'
            btn_viewsQuizes.style.display='block'
@@ -369,7 +439,13 @@ submitBtn.addEventListener('click', () => {
        }
        
     }else{
-        alert("Please select answer")
+        swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please select the answer!',
+            timer: 5000
+            
+          })
     }
 })
 //////////// BUTTON CLICK SHOW VIEW QUIZ /////////////
