@@ -16,7 +16,7 @@ let indexWrightAnswer = []
 let wrongAnswers = []
 let input_All=false
 let countAddQ=0
-
+var storageDataViewQuiz=[]
 
 
 // ------------------------------------------------------------------------
@@ -46,8 +46,9 @@ function onClickOnQuiz() {
         hide(quiz)
         hide(viewQuizs)
         show(start_quiz)
-        loadQuiz()
-
+        score = 0
+        currentQuizIndex = 0
+        desClearViewQuiz()
     }
 }
 
@@ -58,6 +59,7 @@ function onClickOnStartQuiz() {
     hide(btn_viewsQuizes)
     show(quiz)
 }
+
 
 // click on btn create to show create-form and hide all
 function displayCreateForm() {
@@ -75,9 +77,9 @@ function inputAll() {
     swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Your question has been saved',
+        title: 'Your question has been added',
         showConfirmButton: false,
-        timer: 5000
+        timer: 3000
     })
     addQuestion();
 }
@@ -88,7 +90,7 @@ function ifEmpty() {
         icon: 'error',
         title: 'Oops...',
         text: 'Fill the form first...!',
-        timer: 1000
+        timer: 3000
     })
 }
 
@@ -113,7 +115,6 @@ function if_empty() {
 
 }
 
-
 function saveQuestions() {
     localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
     input_All=true
@@ -123,12 +124,13 @@ function loadQuestions() {
     questionsAndAnswers = JSON.parse(localStorage.getItem("local"))
 }
 
+///////////////// EDIT QUESTION ////////////////
+
 function displayEditQuestions() {
     for (let question of questionsAndAnswers) {
         // create questions
     }
 }
-
 
 function addQuestion() {
 
@@ -174,9 +176,6 @@ function deleteItem(e) {
     }
 }
 
-
-
-
 function getRightAnswer(index) {
     indexWrightAnswer.push(index)
     console.log("right", indexWrightAnswer)
@@ -188,13 +187,21 @@ function checkWrongAnswers(wrong) {
 
 }
 
-//////////////// VIEW QUIZ /////////////////////
+function desClearViewQuiz(){
+    let allQquestions = document.querySelectorAll("#viewQ")
+    let allAnswer=document.querySelectorAll(".li-answer")
+    allQquestions.forEach(oneQuestion => oneQuestion.value="")
+    allAnswer.forEach(oneAnswer => oneAnswer.value="")
+    loadQuiz()
+}
 
+
+//////////////// VIEW QUIZ /////////////////////
 
 function viewQuiz() {
     checkWrongAnswers()
-
-    for (i = 0; i < questionsAndAnswers.length; i++) {
+    console.log("gotData",storageDataViewQuiz)
+    for (i = 0; i < storageDataViewQuiz.length; i++) {
         let ul = document.createElement("div")
         ul.className = "ul-ViewsAnswers"
         ul.style.color = "white"
@@ -209,32 +216,32 @@ function viewQuiz() {
         li_c.className = "li-answer"
         let li_d = document.createElement("li")
         li_d.className = "li-answer"
-        h3.textContent = questionsAndAnswers[i].question
-        li_a.textContent = questionsAndAnswers[i].a
-        li_b.textContent = questionsAndAnswers[i].b
-        li_c.textContent = questionsAndAnswers[i].c
-        li_d.textContent = questionsAndAnswers[i].d
+        h3.textContent = storageDataViewQuiz[i].question
+        li_a.textContent = storageDataViewQuiz[i].a
+        li_b.textContent = storageDataViewQuiz[i].b
+        li_c.textContent = storageDataViewQuiz[i].c
+        li_d.textContent = storageDataViewQuiz[i].d
         ///////////// CHECK GOOD ANSWER ////////////
+
         for (u of indexWrightAnswer) {
             if (u === i) {
-                ul.style.border = "green solid 1px"
+                ul.style.border = "4px solid green"
             }
         }
 
-        // ////////////////////////////////////////
-        // check good answer
-        if (questionsAndAnswers[i].correct == "a") {
-            console.log("fsdfdfsd", questionsAndAnswers[i].correct);
+        // ////////////// CHECK GOOD ANSWER ///////////////////
+        if (storageDataViewQuiz[i].correct == "a") {
+            console.log("fsdfdfsd", storageDataViewQuiz[i].correct);
             li_a.style.backgroundColor = "green"
 
-        } else if (questionsAndAnswers[i].correct == "b") {
+        } else if (storageDataViewQuiz[i].correct == "b") {
 
             li_b.style.backgroundColor = "green"
 
-        } else if (questionsAndAnswers[i].correct == "c") {
+        } else if (storageDataViewQuiz[i].correct == "c") {
             li_c.style.backgroundColor = "green"
 
-        } else if (questionsAndAnswers[i].correct == "d") {
+        } else if (storageDataViewQuiz[i].correct == "d") {
             li_d.style.backgroundColor = "green"
         }
 
@@ -242,22 +249,20 @@ function viewQuiz() {
 
         if (i < wrongAnswers.length - 1) {
             console.log("wrong Answers", wrongAnswers)
-            if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'a') {
+            if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'a') {
                 li_a.style.backgroundColor = "red"
-                console.log("showa", wrongAnswers[i].id);
 
-            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'b') {
+            }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'b') {
                 li_b.style.backgroundColor = "red"
-                console.log("showb", wrongAnswers[i].id);
-            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'c') {
+               
+            }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'c') {
                 li_c.style.backgroundColor = "red"
-                console.log("showc", wrongAnswers[i].id);
-            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'd') {
+               
+            }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'd') {
                 li_d.style.backgroundColor = "red"
-                console.log("showd", wrongAnswers[i].id);
+                
             }
         }
-        // }console.log("questionsAndAnswers",questionsAndAnswers)
 
         ul.appendChild(h3)
         ul.appendChild(li_a)
@@ -273,9 +278,10 @@ function viewQuiz() {
 
 /////////// FUNCTION DISPLAY QUIZ /////////////
 
+
 function loadQuiz() {
     deSelected()
-    console.log('hi')
+    let getData={}
     if (questionsAndAnswers.length > 0) {
         const currentQuizData = questionsAndAnswers[currentQuizIndex]
         questionEl.textContent = currentQuizData.question
@@ -283,7 +289,15 @@ function loadQuiz() {
         b_text.textContent = currentQuizData.b
         c_text.textContent = currentQuizData.c
         d_text.textContent = currentQuizData.d
+        getData.question = currentQuizData.question
+        getData.a = currentQuizData.a
+        getData.b = currentQuizData.b
+        getData.c = currentQuizData.c
+        getData.d = currentQuizData.d
+        getData.correct = currentQuizData.correct
+        storageDataViewQuiz.push(getData)
     }
+    
 }
 
 /////////// CHECK SELECT ANSWERS ////////
@@ -313,10 +327,9 @@ submitBtn.addEventListener('click', () => {
             getscore.textContent = score
             getRightAnswer(currentQuizIndex)
 
-            //    console.log(arrayCorrectAnswer)
         } else if (answer != questionsAndAnswers[currentQuizIndex].answer) {
-            getWrongAnswer.index = currentQuizIndex
-            getWrongAnswer.id = answer
+            getWrongAnswer.getIndex = currentQuizIndex
+            getWrongAnswer.getId = answer
             checkWrongAnswers(getWrongAnswer)
         }
         currentQuizIndex++
@@ -328,7 +341,7 @@ submitBtn.addEventListener('click', () => {
             viewQuizs.style.display = 'block'
             btn_viewsQuizes.style.display = 'block'
             document.getElementById("totalScore").textContent = questionsAndAnswers.length * 20
-            //    quiz.innerHTML=""
+           
         }
 
     } else {
@@ -336,7 +349,7 @@ submitBtn.addEventListener('click', () => {
             icon: 'error',
             title: 'Oops...',
             text: 'Please select the answer!',
-            timer: 2000
+            timer: 3000
 
         })
 
@@ -351,22 +364,18 @@ function createQuestion(e){
         loadQuestions();
         const divShowQuestion=document.createElement('div')
         divShowQuestion.className='div_showQuestion'
-        for(let i=0; i<questionsAndAnswers.length; i++){
-            divShowQuestion.id=i
-            console.log(i) 
-        }
+    
+        divShowQuestion.id=countAddQ
         
         const showQuestion=document.createElement('div')
         showQuestion.className='show-que'
 
-        // const divP=document.createElement('div')
         const p=document.createElement('p')
         p.className='q_tion'
         p.textContent=questionsAndAnswers[countAddQ].question;
         showQuestion.appendChild(p)
         divShowQuestion.appendChild(showQuestion)
       
-
         let div_btn_del_edit=document.createElement('div')
         div_btn_del_edit.className='btnDE'
         
@@ -386,7 +395,6 @@ function createQuestion(e){
         contShowQus.appendChild(divShowQuestion);
         img_dele.addEventListener("click",deleteItem)
 
-        
         countAddQ++
         
 
@@ -399,10 +407,7 @@ function createQuestion(e){
 // ------------------------------------------------------------------------
 
 
-
 // EDIT QUIZ   VIEW - ------------------------------------------------------------------------------
-
-
 
 const start_quiz = document.getElementById('start_quiz')
 const banner = document.getElementById('banner')
