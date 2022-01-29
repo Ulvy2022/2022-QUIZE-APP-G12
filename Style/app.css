@@ -59,9 +59,10 @@ body{
   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
   width: 60%;
   margin: 20px auto;
+  font-family: sans-serif;
 }
 .quiz-container .quiz-header{
-  padding: 4rem;
+  padding: 1rem;
 }
 
 .quiz-container .showScore{
@@ -79,20 +80,25 @@ body{
 
 .quiz-container ul{
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
   
 }
 
 .quiz-container ul li{
   font-size: 1rem;
-  margin: 1rem;
+  padding: 10px;
+ 
 }
 
 .quiz-container ul li label{
   border-radius: 6px;
-  height: 4rem;
   cursor: pointer;
   padding: 10px;
+}
+.quiz-container ul li input[type='radio']{
+    padding: 10px;
+    margin: 5px;
+    transform: scale(1.7);
 }
 
 .quiz-container button{
@@ -105,6 +111,7 @@ body{
   font-size: 1.1rem;
   font-family: inherit;
   padding: 1.3rem;
+  border-radius: 0 0 10px 10px;
 }
 button:hover{
   background-color: #9c27b0;
@@ -117,11 +124,9 @@ button:focus{
 .hide{
   display: none;
 }
-
-/* / ///////////// VIEW QUIZ //////////// / */
+/* / / ///////////// VIEW QUIZ //////////// / / */
 
 .viewAnswers{
-  /* display: none; */
   width: 60%;
   margin:2rem auto;
   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
@@ -130,22 +135,21 @@ button:focus{
   text-align: center;
 }
 .ul-ViewsAnswers{
-  border-top: 1px solid #000;
-  border-left: 5px solid rgb(252, 1, 1);
+  background-color: #e1bee7;
+  border-left: 5px solid#7b1fa2;
   margin: 1rem 0;
   border-radius: 10px;
-  padding: 10px;
-  
-
+  padding: 20px;
+  font-family: sans-serif;
 }
 
 .li-answer{
   border-radius: 10px;
-  margin: 2px;
+  margin: 20px;
   padding: 20px;
   list-style: none;
+  background-color: gray;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  
 }
 
 #viewAll-answer{
@@ -158,9 +162,18 @@ button:focus{
   margin: 10px 44%;
 
 }
+.showScore{
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 20px;
+  color: white;
+}
 .correctAnswerAll{
   text-align: center;
-  
+  padding: 20px;
+  font-size: 25px;
+  font-family: sans-serif;
+
 }
 
 
@@ -199,11 +212,12 @@ button:focus{
 
 /* create quiz */
 .container-form-showQuestion{
+  display: none;
   width: 100%;
   
 }
 .form-container{
-  display: none;
+  
   box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.3);
   width: 720px;
   margin: 20px auto;
@@ -316,19 +330,37 @@ button:focus{
 /* <!-- show question view --> */
 .show-que{
   font-family: sans-serif;
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.3);
-  border-left: 6px solid #7b1fa2;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0,0.2);
+  border-top: 6px solid #7b1fa2;
   background-color: #e1bee7;
   border-radius: 10px;
-  width: 53%;
-  margin:10px  auto;
-  padding-bottom: 10px;
+  width: 54%;
+  margin:10px 0% 10px 23% ;
 }
-.show-que div{
-  padding: 10px 20px;
+.show-que .q_tion{
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
 }
-.show-que div p{
-  border-bottom: 1px solid #ba66df;
-  padding: 5px 0;
-  font-size: 20px;
+
+.div_showQuestion{
+  display: flex;
+  align-items: center;
+  
+ 
+}
+.img_dele,
+.img_edit{
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 5px;
+  
+  
+}
+.btnDE{
+  display: grid;
+  margin:  5px 5px auto;
+  padding-top: 10px;
+
 }

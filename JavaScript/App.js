@@ -1,196 +1,160 @@
 
+// ------------------------------------------------------------------------
+//      CONSTANTS
+// ------------------------------------------------------------------------
+ 
 
-// hide banner and show start quiz
-function displayStartQuze(){
-    banner.style.display='none'
-    containerAll.style.display='none'
-    btn_viewsQuizes.style.display='none'
-    quiz.style.display='none'
-    viewQuizs.style.display='none'
-    start_quiz.style.display='block'
-    loadQuiz()
-    
+// ------------------------------------------------------------------------
+//      VARIABLES
+// ------------------------------------------------------------------------
+
+// the array contain all the question and the player answwer
+let questionsAndAnswers = []
+let score = 0
+let currentQuizIndex = 0
+let indexWrightAnswer = []
+let wrongAnswers = []
+let input_All=false
+let countAddQ=0
+
+
+
+// ------------------------------------------------------------------------
+//      FUNCTIONS
+// ------------------------------------------------------------------------
+
+function show(element) {
+    element.style.display = 'block'
 }
-let start_quiz=document.getElementById('start_quiz')
-let banner=document.getElementById('banner')
-
-let clickOnMenuQuiz=document.getElementById('quize-bar')
-clickOnMenuQuiz.addEventListener('click', displayStartQuze)
-
-
-
-// hide shart quiz and show play quiz
-function playQuiz(){
-    start_quiz.style.display='none'
-    containerAll.style.display='none'
-    btn_viewsQuizes.style.display='none'
-    quiz.style.display='block'
-
+function hide(elem) {
+    elem.style.display = 'none'
 }
 
-let clickOnBtnStartQuiz=document.getElementById('btn-start')
-clickOnBtnStartQuiz.addEventListener('click', playQuiz)
+function onClickOnQuiz() {
+    if(questionsAndAnswers.length==0){
+        swal.fire({
+            icon: 'error',
+            title: 'Cannot play quiz',
+            text: 'Please create quiz',
+            timer: 5000
+        })
+    }else{
+        // Show the start quiz button
+        hide(banner)
+        hide(containerFormShowQuestion)
+        hide(btn_viewsQuizes)
+        hide(quiz)
+        hide(viewQuizs)
+        show(start_quiz)
+        loadQuiz()
 
+    }
+}
 
+function onClickOnStartQuiz() {
+    // Show the  quiz 
+    hide(start_quiz)
+    hide(containerFormShowQuestion)
+    hide(btn_viewsQuizes)
+    show(quiz)
+}
 
 // click on btn create to show create-form and hide all
-function displayCreateForm(){
-    start_quiz.style.display='none'
-    viewQuizs.style.display='none'
-    btn_viewsQuizes.style.display='none'
-    quiz.style.display='none'
-    banner.style.display='none'
-    containerAll.style.display='block'
-
+function displayCreateForm() {
+    hide(start_quiz)
+    hide(viewQuizs)
+    hide(btn_viewsQuizes)
+    hide(quiz)
+    hide(banner)
+    show(containerFormShowQuestion)
 }
-var viewQuizs=document.getElementById("viewquiz")
-let createQuiz=document.getElementById('createForm')
-let clickOnBtnCreate=document.getElementById('create-bar')
-clickOnBtnCreate.addEventListener('click', displayCreateForm)
-
 
 // alert if emtyp input
 // sweet alert
-function show_Aaddes () {
+function inputAll() {
     swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Your question has been saved',
         showConfirmButton: false,
         timer: 5000
-      })
+    })
+    addQuestion();
 }
 
-// if empty
+/////////// ALERT IF SOME INPUT NOTHING ////////////
 function ifEmpty() {
     swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Fill the form first...!',
-        timer: 5000
-      })
-}
-var input_all = false;
-var ifCorrect=false
-// check if empty
-function if_empty () {
-    var getA1 = document.getElementById("a1").value ;
-    var getA2 = document.getElementById("a2").value ;
-    var getA3 = document.getElementById("a3").value ;
-    var getA4 = document.getElementById("a4").value ;
-    var get_Q = document.getElementById("Que").value ;
-    var correctAnswer = document.getElementById("correct_Ans").value ;
-
-    if (getA1 == "" || getA2 == "" || getA3 == "" || getA4 == "" || correctAnswer==""){
-        ifEmpty();
-        input_all = true;
-        ifCorrect = true;
-    }
-    else {
-        show_Aaddes();
-    }
-    
+        timer: 1000
+    })
 }
 
 
-// get value from from-container
-var container = document.querySelector(".form-container");
-var containerAll=document.querySelector('.container-form-showQuestion')
-container.style.display = "none";
-
-var showQue = document.querySelector(".show-que");
-
-
-var formGroup = document.querySelector(".form-group");
-
-/////////// FUNCTION ADD QUESTION ADN ANSWER ///////
-
-function create_display(event) {
-    event.preventDefault();
-    if_empty ();
-
-    ////////////// GET VALUE FROM INPUT //////////////////
-
+////// CHECK INPUT ////////////////
+function if_empty() {
     var getA1 = document.getElementById("a1").value;
     var getA2 = document.getElementById("a2").value;
     var getA3 = document.getElementById("a3").value;
     var getA4 = document.getElementById("a4").value;
     var get_Q = document.getElementById("Que").value;
     var correctAnswer = document.getElementById("correct_Ans").value;
-    
-  //////////// CHECK INPUT QUESTION AND ANSWERS ////////////////////////
-    if(input_all==false){
-            let div_showQuestion=document.createElement('div')
-            let showQuestion = document.createElement("div");
-            showQuestion.className = "show-que";
-            
 
-            let div_P = document.createElement("div");
-            let P_div = document.createElement("p");
-            P_div.textContent = get_Q;
-            P_div.className = "q_tion";
-            div_P.appendChild(P_div);
-
-            showQuestion.appendChild(div_P);
-
-            let div_An1 = document.createElement("div");
-            let input_an1 = document.createElement("span");
-            input_an1.type = "text";
-            input_an1.className = "rad1";
-            input_an1.textContent ="Answer A : "+ getA1;
-            div_An1.appendChild(input_an1)
-            showQuestion.appendChild(div_An1);
-
-
-            let div_An2 = document.createElement("div");
-            let input_an2 = document.createElement("span");
-            input_an2.type = "text"
-            input_an2.className = "rad1";
-            input_an2.textContent ="Answer B : "+ getA2;
-            div_An2.appendChild(input_an2)
-            showQuestion.appendChild(div_An2);
-
-            let div_An3 = document.createElement("div");
-            let input_an3 = document.createElement("span");
-            input_an3.type = "text";
-            input_an3.className = "rad1";
-            input_an3.textContent = "Answer C : "+getA3;
-            div_An3.appendChild(input_an3)
-            showQuestion.appendChild(div_An3);
-
-            
-            let div_An4 = document.createElement("div");
-            let input_an4 = document.createElement("span");
-            input_an4.type = "text";
-            input_an4.className = "rad1";
-            input_an4.textContent = "Answer D : "+getA4;
-            div_An4.appendChild(input_an4)
-            showQuestion.appendChild(div_An4);
-
-            let div_correct = document.createElement("div");
-            let corr = document.createElement("span");
-            corr.textContent ="Correct Answer : "+ correctAnswer;
-            corr.className = "rad1"
-            div_correct.appendChild(corr);
-            showQuestion.appendChild(div_correct);
-            div_showQuestion.appendChild(showQuestion)
-            containerAll.appendChild(showQuestion);
-            console.log(arrayOfDict)
-            
-            dict = {question:get_Q, a:getA1, b:getA2, c:getA3, d:getA4, correct:correctAnswer.toLowerCase()};
-            arrayOfDict.push(dict);
-            
+    if (getA1 == "" || getA2 == "" || getA3 == "" || getA4 == "" || correctAnswer == "" || get_Q == "") {
+        ifEmpty();
+        
+        
     }
-    input_all = false;
-    clearForm();
-    document.getElementById("totalScore").innerText=arrayOfDict.length*25
-    // clear all question after click on btn add
+    else {
+        inputAll();
+    }
+
 }
 
 
-////////// FUNCTION DISCLEAR INPUT //////////////
+function saveQuestions() {
+    localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
+    input_All=true
+}
 
-function clearForm(){
+function loadQuestions() {
+    questionsAndAnswers = JSON.parse(localStorage.getItem("local"))
+}
+
+function displayEditQuestions() {
+    for (let question of questionsAndAnswers) {
+        // create questions
+    }
+}
+
+
+function addQuestion() {
+
+    // 1 - create new question
+    let getA1 = document.getElementById("a1").value;
+    let getA2 = document.getElementById("a2").value;
+    let getA3 = document.getElementById("a3").value;
+    let getA4 = document.getElementById("a4").value;
+    let get_Q = document.getElementById("Que").value;
+    let correctAnswer = document.getElementById("correct_Ans").value;
+    let newQuestion = { question: get_Q, a: getA1, b: getA2, c: getA3, d: getA4, correct: correctAnswer.toLowerCase() };
+
+    // 2 - add this new question
+    questionsAndAnswers.push(newQuestion);
+
+    // 3 - save to local storage
+    saveQuestions();
+
+    // 4 - Clear from
+    clearForm()
+
+    // Diplay question
+    displayEditQuestions();
+}
+
+function clearForm() {
     document.getElementById("a1").value = "";
     document.getElementById("a2").value = "";
     document.getElementById("a3").value = "";
@@ -199,159 +163,121 @@ function clearForm(){
     document.getElementById("correct_Ans").value = "";
 }
 
-// show quiz form for create 
-function showFormCreateQuestion(event) {
-    event.preventDefault();
-    container.style.display = "block";
+function deleteItem(e) {
+    if (e.target.className == "img_dele") {
+        e.target.parentElement.parentElement.remove()
+        
+        let idQues=e.target.parentElement.parentElement.id
+        console.log(idQues)
+        questionsAndAnswers.splice(idQues,1)
+        localStorage.setItem('local' , JSON.stringify(questionsAndAnswers))
+    }
 }
 
 
-// get value from question
-
-// get vaue from q & a
-
-var get_Q = document.querySelector(".form-custom");
-var get_A = document.querySelectorAll(".form-control");
-
-var dict = {};
-
-// gett value from question
-var arr = [];
-var getValueFromQuiz = [];
-var getValueAsDict = {};
-
-// btn for selte quiz
-let getCreateValue = document.getElementById("create-bar");
-getCreateValue.addEventListener("click", showFormCreateQuestion);
-
-// btn-add
-let btn_next = document.querySelector(".next");
-btn_next.addEventListener("click",create_display)
-
-//////////////// ARRAY OBJECT OF DATA STORAGE //////////////
-
-const arrayOfDict = []
 
 
-///////// CALL TO PLAY QUIZ ///////////
-
-const quiz= document.getElementById('quiz')
-const answerEls = document.querySelectorAll('.answer')
-const questionEl = document.getElementById('question')
-const a_text = document.getElementById('a_text')
-const b_text = document.getElementById('b_text')
-const c_text = document.getElementById('c_text')
-const d_text = document.getElementById('d_text')
-var getscore=document.getElementById("getScore")
-
-const submitBtn = document.getElementById('submit')
-
-let currentQuiz = 0
-
-let score = 0
-
-///////////////////////////////////////
-let indexAnswer=[]
-
-function getRightAnswer(index){
-    indexAnswer.push(index)
-    
+function getRightAnswer(index) {
+    indexWrightAnswer.push(index)
+    console.log("right", indexWrightAnswer)
 }
 
-let wrongAnswers=[]
-function checkWrongAnswers(wrong){
+function checkWrongAnswers(wrong) {
     wrongAnswers.push(wrong)
     getRightAnswer()
-    
+
 }
 
 //////////////// VIEW QUIZ /////////////////////
 
-var viewQuizs=document.getElementById("viewquiz")
-function displayQuiz(){
-    
-    checkWrongAnswers()
-    
-    for (i=0;i<arrayOfDict.length;i++){
-        let ul=document.createElement("div")
-        ul.className="ul-ViewsAnswers"
-        ul.style.color="white"
-        let h3=document.createElement("h3")
-        h3.id="viewQ"
-        h3.style.color="black"
-        let li_a1=document.createElement("li")
-        li_a1.className="li-answer"
-        let li_a2=document.createElement("li")
-        li_a2.className="li-answer"
-        let li_a3=document.createElement("li")
-        li_a3.className="li-answer"
-        let li_a4=document.createElement("li")
-        li_a4.className="li-answer"
-        h3.textContent=arrayOfDict[i].question
-        li_a1.textContent=arrayOfDict[i].a
-        li_a2.textContent=arrayOfDict[i].b
-        li_a3.textContent=arrayOfDict[i].c
-        li_a4.textContent=arrayOfDict[i].d
-        ///////////// CHECK GOOD ANSWER ////////////
 
-        for (u of indexAnswer){
-            if (u===i){
-                ul.style.border="green solid"
+function viewQuiz() {
+    checkWrongAnswers()
+
+    for (i = 0; i < questionsAndAnswers.length; i++) {
+        let ul = document.createElement("div")
+        ul.className = "ul-ViewsAnswers"
+        ul.style.color = "white"
+        let h3 = document.createElement("h3")
+        h3.id = "viewQ"
+        h3.style.color = "black"
+        let li_a = document.createElement("li")
+        li_a.className = "li-answer"
+        let li_b = document.createElement("li")
+        li_b.className = "li-answer"
+        let li_c = document.createElement("li")
+        li_c.className = "li-answer"
+        let li_d = document.createElement("li")
+        li_d.className = "li-answer"
+        h3.textContent = questionsAndAnswers[i].question
+        li_a.textContent = questionsAndAnswers[i].a
+        li_b.textContent = questionsAndAnswers[i].b
+        li_c.textContent = questionsAndAnswers[i].c
+        li_d.textContent = questionsAndAnswers[i].d
+        ///////////// CHECK GOOD ANSWER ////////////
+        for (u of indexWrightAnswer) {
+            if (u === i) {
+                ul.style.border = "green solid 1px"
             }
         }
-
-        /////// CHECK BAD ANSWERS ////////////
-        
 
         // ////////////////////////////////////////
-        if (arrayOfDict[i].correct.toLowerCase()=="a"){
-            li_a1.style.backgroundColor="green"
-            
-        }else if (arrayOfDict[i].correct.toLowerCase()=="b"){
+        // check good answer
+        if (questionsAndAnswers[i].correct == "a") {
+            console.log("fsdfdfsd", questionsAndAnswers[i].correct);
+            li_a.style.backgroundColor = "green"
 
-            li_a2.style.backgroundColor="green"
-           
-        }else if (arrayOfDict[i].correct.toLowerCase()=="c"){
-            li_a3.style.backgroundColor="green"
-           
-        }else if (arrayOfDict[i].correct.toLowerCase()=="d"){
-            
-            li_a4.style.backgroundColor="green"  
+        } else if (questionsAndAnswers[i].correct == "b") {
+
+            li_b.style.backgroundColor = "green"
+
+        } else if (questionsAndAnswers[i].correct == "c") {
+            li_c.style.backgroundColor = "green"
+
+        } else if (questionsAndAnswers[i].correct == "d") {
+            li_d.style.backgroundColor = "green"
         }
+
         ///////////////////// CHECK WRONG ANSWER /////////////////
-        if (i<wrongAnswers.length-1){
-            if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='a'){
-                li_a1.style.backgroundColor="red"
-            
-            }else if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='b'){
-                li_a2.style.backgroundColor="red"
-                
-            }else if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='c'){
-                li_a3.style.backgroundColor="red"
-            }else if (wrongAnswers[i].index===i || wrongAnswers[i].id.toLowerCase()=='d'){
-                li_a4.style.backgroundColor="red"
+
+        if (i < wrongAnswers.length - 1) {
+            console.log("wrong Answers", wrongAnswers)
+            if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'a') {
+                li_a.style.backgroundColor = "red"
+                console.log("showa", wrongAnswers[i].id);
+
+            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'b') {
+                li_b.style.backgroundColor = "red"
+                console.log("showb", wrongAnswers[i].id);
+            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'c') {
+                li_c.style.backgroundColor = "red"
+                console.log("showc", wrongAnswers[i].id);
+            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'd') {
+                li_d.style.backgroundColor = "red"
+                console.log("showd", wrongAnswers[i].id);
             }
         }
+        // }console.log("questionsAndAnswers",questionsAndAnswers)
 
         ul.appendChild(h3)
-        ul.appendChild(li_a1)
-        ul.appendChild(li_a2)
-        ul.appendChild(li_a3)
-        ul.appendChild(li_a4)
+        ul.appendChild(li_a)
+        ul.appendChild(li_b)
+        ul.appendChild(li_c)
+        ul.appendChild(li_d)
         viewQuizs.appendChild(ul)
-       
     }
+
+
     viewQuizs.classList.remove("hide")
-    btn_viewsQuizes.classList.add="hide"
 }
 
 /////////// FUNCTION DISPLAY QUIZ /////////////
 
 function loadQuiz() {
     deSelected()
-    console.log(arrayOfDict)
-    if(arrayOfDict.length>0){
-        const currentQuizData = arrayOfDict[currentQuiz]
+    console.log('hi')
+    if (questionsAndAnswers.length > 0) {
+        const currentQuizData = questionsAndAnswers[currentQuizIndex]
         questionEl.textContent = currentQuizData.question
         a_text.textContent = currentQuizData.a
         b_text.textContent = currentQuizData.b
@@ -365,61 +291,177 @@ function loadQuiz() {
 function getSelected() {
     let answer
     answerEls.forEach(answerEl => {
-        if(answerEl.checked) {
-            answer = answerEl.id 
+        if (answerEl.checked) {
+            answer = answerEl.id
         }
     })
     return answer
 }
 
-function deSelected(){
-    answerEls.forEach(answerEl=>answerEl.checked=false)
+function deSelected() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
 }
 
 ////////// CHECK BUTTON SUBMIT /////////////////
-
+const submitBtn = document.getElementById('submit')
 submitBtn.addEventListener('click', () => {
     const answer = getSelected()
-    let getWrongAnswer={}
-    if(answer) {
-       if(answer === arrayOfDict[currentQuiz].correct) {
-        
-           score+=25
-           getscore.textContent=score
-           getRightAnswer(currentQuiz)
-           
-           //    console.log(arrayCorrectAnswer)
-        }else if(answer!=arrayOfDict[currentQuiz].answer){
-            getWrongAnswer.index=currentQuiz
-            getWrongAnswer.id=answer
+    let getWrongAnswer = {}
+    if (answer) {
+        if (answer === questionsAndAnswers[currentQuizIndex].correct) {
+            score += 20
+            getscore.textContent = score
+            getRightAnswer(currentQuizIndex)
+
+            //    console.log(arrayCorrectAnswer)
+        } else if (answer != questionsAndAnswers[currentQuizIndex].answer) {
+            getWrongAnswer.index = currentQuizIndex
+            getWrongAnswer.id = answer
             checkWrongAnswers(getWrongAnswer)
         }
-        currentQuiz++
-        
-        if(currentQuiz < arrayOfDict.length) {
+        currentQuizIndex++
+
+        if (currentQuizIndex < questionsAndAnswers.length) {
             loadQuiz()
         } else {
-           
-           btn_viewsQuizes.classList.remove("hide")
-           viewQuizs.style.display='block'
-           btn_viewsQuizes.style.display='block'
-           quiz.innerHTML=""
-           
+            btn_viewsQuizes.classList.remove("hide")
+            viewQuizs.style.display = 'block'
+            btn_viewsQuizes.style.display = 'block'
+            document.getElementById("totalScore").textContent = questionsAndAnswers.length * 20
+            //    quiz.innerHTML=""
+        }
 
-       }
-     
-    }else{
+    } else {
         swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Please select the answer!',
             timer: 2000
-            
-          })
-        
+
+        })
+
     }
 })
-//////////// BUTTON CLICK SHOW VIEW QUIZ /////////////
+ 
+function createQuestion(e){
+    e.preventDefault()
+    if_empty()
+    if(input_All){
+        saveQuestions();
+        loadQuestions();
+        const divShowQuestion=document.createElement('div')
+        divShowQuestion.className='div_showQuestion'
+        for(let i=0; i<questionsAndAnswers.length; i++){
+            divShowQuestion.id=i
+            console.log(i) 
+        }
+        
+        const showQuestion=document.createElement('div')
+        showQuestion.className='show-que'
 
-let btn_viewsQuizes=document.getElementById("viewAll-answer")
-btn_viewsQuizes.addEventListener("click",displayQuiz)
+        // const divP=document.createElement('div')
+        const p=document.createElement('p')
+        p.className='q_tion'
+        p.textContent=questionsAndAnswers[countAddQ].question;
+        showQuestion.appendChild(p)
+        divShowQuestion.appendChild(showQuestion)
+      
+
+        let div_btn_del_edit=document.createElement('div')
+        div_btn_del_edit.className='btnDE'
+        
+        let img_dele=document.createElement('img')
+        img_dele.className='img_dele'
+        img_dele.id='idDele'
+        img_dele.src='images/delete.png'
+        div_btn_del_edit.appendChild(img_dele)
+       
+        let img_edit=document.createElement('img')
+        img_edit.className='img_edit'
+        img_edit.id='idEdit'
+        img_edit.src='images/edite.png'
+        div_btn_del_edit.appendChild(img_edit)
+        divShowQuestion.appendChild(div_btn_del_edit)
+
+        contShowQus.appendChild(divShowQuestion);
+        img_dele.addEventListener("click",deleteItem)
+
+        
+        countAddQ++
+        
+
+    }
+
+}
+
+// ------------------------------------------------------------------------
+//      MAIN
+// ------------------------------------------------------------------------
+
+
+
+// EDIT QUIZ   VIEW - ------------------------------------------------------------------------------
+
+
+
+const start_quiz = document.getElementById('start_quiz')
+const banner = document.getElementById('banner')
+
+const viewQuizs = document.getElementById("viewquiz")
+const createQuiz = document.getElementById('createForm')
+
+const formContainer = document.querySelector(".form-container");
+
+const contShowQus = document.getElementById('cont_show_que')
+const showQue = document.querySelector(".show-que");
+const formGroup = document.querySelector(".form-group");
+const get_Q = document.querySelector(".form-custom");
+const get_A = document.querySelectorAll(".form-control");
+
+const clickOnMenuQuiz = document.getElementById('quize-bar')
+clickOnMenuQuiz.addEventListener('click', onClickOnQuiz)
+
+
+const clickOnBtnStartQuiz = document.getElementById('btn-start')
+clickOnBtnStartQuiz.addEventListener('click', onClickOnStartQuiz)
+
+
+
+const containerFormShowQuestion = document.querySelector('.container-form-showQuestion')
+const clickOnBtnCreate = document.getElementById('create-bar')
+clickOnBtnCreate.addEventListener('click', displayCreateForm)
+
+
+const btn_next = document.querySelector(".next");
+btn_next.addEventListener("click", createQuestion)
+
+
+
+
+const div_showQuestion = document.querySelector(".div_showQuestion")
+
+const btn_viewsQuizes = document.getElementById("viewAll-answer")
+
+
+let firstClick=true
+btn_viewsQuizes.addEventListener("click", function () {
+    if (firstClick) {
+        viewQuiz()
+        firstClick=false
+    }
+})
+
+
+
+// PLAY QUIZ   VIEW ------------------------------------------------------------------------------
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+const getscore = document.getElementById("getScore")
+
+
+ 
