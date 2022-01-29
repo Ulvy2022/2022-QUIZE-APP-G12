@@ -16,7 +16,12 @@ let indexWrightAnswer = []
 let wrongAnswers = []
 let input_All=false
 let countAddQ=0
+<<<<<<< HEAD
 let storageDataViewQuiz=[]
+=======
+var storageDataViewQuiz=[]
+
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
 
 // ------------------------------------------------------------------------
 //      FUNCTIONS
@@ -45,6 +50,7 @@ function onClickOnQuiz() {
         hide(quiz)
         hide(viewQuizs)
         show(start_quiz)
+<<<<<<< HEAD
         currentQuizIndex=0
         score=0
         getscore.textContent = score
@@ -52,6 +58,11 @@ function onClickOnQuiz() {
         
         loadQuiz()
 
+=======
+        score = 0
+        currentQuizIndex = 0
+        desClearViewQuiz()
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
     }
 }
 
@@ -62,6 +73,7 @@ function onClickOnStartQuiz() {
     hide(btn_viewsQuizes)
     show(quiz)
 }
+
 
 // click on btn create to show create-form and hide all
 function displayCreateForm() {
@@ -79,9 +91,9 @@ function inputAll() {
     swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Your question has been saved',
+        title: 'Your question has been added',
         showConfirmButton: false,
-        timer: 5000
+        timer: 3000
     })
     input_All=true
     addQuestion();
@@ -93,7 +105,7 @@ function ifEmpty() {
         icon: 'error',
         title: 'Oops...',
         text: 'Fill the form first...!',
-        timer: 1000
+        timer: 3000
     })
     input_All=false
     
@@ -118,7 +130,11 @@ function if_empty() {
     }
 
 }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
 function saveQuestions() {
     localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
     input_All=true
@@ -127,6 +143,8 @@ function saveQuestions() {
 function loadQuestions() {
     questionsAndAnswers = JSON.parse(localStorage.getItem("local"))
 }
+
+///////////////// EDIT QUESTION ////////////////
 
 function displayEditQuestions() {
     
@@ -204,9 +222,24 @@ function checkWrongAnswers(wrong) {
 
 }
 
+function desClearViewQuiz(){
+    let allQquestions = document.querySelectorAll("#viewQ")
+    let allAnswer=document.querySelectorAll(".li-answer")
+    allQquestions.forEach(oneQuestion => oneQuestion.value="")
+    allAnswer.forEach(oneAnswer => oneAnswer.value="")
+    loadQuiz()
+}
+
+<<<<<<< HEAD
+function clearViewQuiz(){
+=======
+
 //////////////// VIEW QUIZ /////////////////////
 
-function clearViewQuiz(){
+function viewQuiz() {
+    checkWrongAnswers()
+    console.log("gotData",storageDataViewQuiz)
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
     for (i = 0; i < storageDataViewQuiz.length; i++) {
         let ul = document.createElement("div")
         ul.className = "ul-ViewsAnswers"
@@ -227,6 +260,7 @@ function clearViewQuiz(){
         li_b.textContent = storageDataViewQuiz[i].b
         li_c.textContent = storageDataViewQuiz[i].c
         li_d.textContent = storageDataViewQuiz[i].d
+<<<<<<< HEAD
     }
 }
 
@@ -254,15 +288,22 @@ function viewQuiz() {
         li_b.textContent = storageDataViewQuiz[i].b
         li_c.textContent = storageDataViewQuiz[i].c
         li_d.textContent = storageDataViewQuiz[i].d
+=======
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         ///////////// CHECK GOOD ANSWER ////////////
+
         for (u of indexWrightAnswer) {
             if (u === i) {
-                ul.style.border = "green solid 1px"
+                ul.style.border = "4px solid green"
             }
         }
 
+<<<<<<< HEAD
         // ////////////////////////////////////////
         // check good answer
+=======
+        // ////////////// CHECK GOOD ANSWER ///////////////////
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         if (storageDataViewQuiz[i].correct == "a") {
             console.log("fsdfdfsd", storageDataViewQuiz[i].correct);
             li_a.style.backgroundColor = "green"
@@ -282,10 +323,10 @@ function viewQuiz() {
 
         if (i < wrongAnswers.length - 1) {
             console.log("wrong Answers", wrongAnswers)
-            if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'a') {
+            if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'a') {
                 li_a.style.backgroundColor = "red"
-                console.log("showa", wrongAnswers[i].id);
 
+<<<<<<< HEAD
             } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'b') {
                 li_b.style.backgroundColor = "red"
                 console.log("showb", wrongAnswers[i].id);
@@ -293,11 +334,19 @@ function viewQuiz() {
                 li_c.style.backgroundColor = "red"
                 console.log("showc", wrongAnswers[i].id);
             } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'd') {
+=======
+            }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'b') {
+                li_b.style.backgroundColor = "red"
+               
+            }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'c') {
+                li_c.style.backgroundColor = "red"
+               
+            }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'd') {
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
                 li_d.style.backgroundColor = "red"
-                console.log("showd", wrongAnswers[i].id);
+                
             }
         }
-        // }console.log("questionsAndAnswers",questionsAndAnswers)
 
         ul.appendChild(h3)
         ul.appendChild(li_a)
@@ -313,6 +362,7 @@ function viewQuiz() {
 
 /////////// FUNCTION DISPLAY QUIZ /////////////
 
+
 function loadQuiz() {
     deSelected()
     let getData={}
@@ -323,7 +373,10 @@ function loadQuiz() {
         b_text.textContent = currentQuizData.b
         c_text.textContent = currentQuizData.c
         d_text.textContent = currentQuizData.d
+<<<<<<< HEAD
 
+=======
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         getData.question = currentQuizData.question
         getData.a = currentQuizData.a
         getData.b = currentQuizData.b
@@ -332,6 +385,7 @@ function loadQuiz() {
         getData.correct = currentQuizData.correct
         storageDataViewQuiz.push(getData)
     }
+    
 }
 
 /////////// CHECK SELECT ANSWERS ////////
@@ -361,10 +415,9 @@ submitBtn.addEventListener('click', () => {
             getscore.textContent = score
             getRightAnswer(currentQuizIndex)
 
-            //    console.log(arrayCorrectAnswer)
         } else if (answer != questionsAndAnswers[currentQuizIndex].answer) {
-            getWrongAnswer.index = currentQuizIndex
-            getWrongAnswer.id = answer
+            getWrongAnswer.getIndex = currentQuizIndex
+            getWrongAnswer.getId = answer
             checkWrongAnswers(getWrongAnswer)
         }
         currentQuizIndex++
@@ -379,7 +432,11 @@ submitBtn.addEventListener('click', () => {
             btn_viewsQuizes.style.display = 'block'
             
             document.getElementById("totalScore").textContent = questionsAndAnswers.length * 20
+<<<<<<< HEAD
             
+=======
+           
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         }
 
     } else {
@@ -387,7 +444,7 @@ submitBtn.addEventListener('click', () => {
             icon: 'error',
             title: 'Oops...',
             text: 'Please select the answer!',
-            timer: 2000
+            timer: 3000
 
         })
 
@@ -401,21 +458,24 @@ function createQuestion(e){
         
         const divShowQuestion=document.createElement('div') 
         divShowQuestion.className='div_showQuestion'
+<<<<<<< HEAD
        
         // divShowQuestion.id=countAddQ
         
+=======
+    
+        divShowQuestion.id=countAddQ
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         
         const showQuestion=document.createElement('div')
         showQuestion.className='show-que'
 
-        // const divP=document.createElement('div')
         const p=document.createElement('p')
         p.className='q_tion'
         p.textContent=questionsAndAnswers[countAddQ].question;
         showQuestion.appendChild(p)
         divShowQuestion.appendChild(showQuestion)
       
-
         let div_btn_del_edit=document.createElement('div')
         div_btn_del_edit.className='btnDE'
         
@@ -435,7 +495,10 @@ function createQuestion(e){
         contShowQus.appendChild(divShowQuestion);
         img_dele.addEventListener("click",deleteItem)
 
+<<<<<<< HEAD
         refrshId()
+=======
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         countAddQ++
         
 
@@ -447,9 +510,11 @@ function createQuestion(e){
 //      MAIN
 // ------------------------------------------------------------------------
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
 // EDIT QUIZ   VIEW - ------------------------------------------------------------------------------
-
-
 
 const start_quiz = document.getElementById('start_quiz')
 const banner = document.getElementById('banner')
