@@ -16,8 +16,7 @@ let indexWrightAnswer = []
 let wrongAnswers = []
 let input_All=false
 let countAddQ=0
-
-
+let storageDataViewQuiz=[]
 
 // ------------------------------------------------------------------------
 //      FUNCTIONS
@@ -46,6 +45,11 @@ function onClickOnQuiz() {
         hide(quiz)
         hide(viewQuizs)
         show(start_quiz)
+        currentQuizIndex=0
+        score=0
+        getscore.textContent = score
+        storageDataViewQuiz=[]
+        
         loadQuiz()
 
     }
@@ -79,6 +83,7 @@ function inputAll() {
         showConfirmButton: false,
         timer: 5000
     })
+    input_All=true
     addQuestion();
 }
 
@@ -90,8 +95,9 @@ function ifEmpty() {
         text: 'Fill the form first...!',
         timer: 1000
     })
+    input_All=false
+    
 }
-
 
 ////// CHECK INPUT ////////////////
 function if_empty() {
@@ -112,8 +118,7 @@ function if_empty() {
     }
 
 }
-
-
+ 
 function saveQuestions() {
     localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
     input_All=true
@@ -124,34 +129,34 @@ function loadQuestions() {
 }
 
 function displayEditQuestions() {
-    for (let question of questionsAndAnswers) {
-        // create questions
-    }
+    
 }
-
 
 function addQuestion() {
 
     // 1 - create new question
-    let getA1 = document.getElementById("a1").value;
-    let getA2 = document.getElementById("a2").value;
-    let getA3 = document.getElementById("a3").value;
-    let getA4 = document.getElementById("a4").value;
-    let get_Q = document.getElementById("Que").value;
-    let correctAnswer = document.getElementById("correct_Ans").value;
-    let newQuestion = { question: get_Q, a: getA1, b: getA2, c: getA3, d: getA4, correct: correctAnswer.toLowerCase() };
-
-    // 2 - add this new question
-    questionsAndAnswers.push(newQuestion);
-
-    // 3 - save to local storage
-    saveQuestions();
-
-    // 4 - Clear from
-    clearForm()
-
-    // Diplay question
-    displayEditQuestions();
+    
+        let getA1 = document.getElementById("a1").value;
+        let getA2 = document.getElementById("a2").value;
+        let getA3 = document.getElementById("a3").value;
+        let getA4 = document.getElementById("a4").value;
+        let get_Q = document.getElementById("Que").value;
+        let correctAnswer = document.getElementById("correct_Ans").value;
+        let newQuestion = { question: get_Q, a: getA1, b: getA2, c: getA3, d: getA4, correct: correctAnswer.toLowerCase() };
+    
+        // 2 - add this new question
+        questionsAndAnswers.push(newQuestion);
+    
+        // 3 - save to local storage
+        saveQuestions();
+    
+        // 4 - Clear from
+        clearForm()
+    
+        // Diplay question
+        displayEditQuestions();
+    
+   
 }
 
 function clearForm() {
@@ -163,6 +168,16 @@ function clearForm() {
     document.getElementById("correct_Ans").value = "";
 }
 
+function refrshId(){
+    let id=0
+    let div_showQuestion=document.getElementsByClassName('div_showQuestion')
+    for(let item of div_showQuestion){
+        item.id=id
+        id++
+    }
+
+}
+
 function deleteItem(e) {
     if (e.target.className == "img_dele") {
         e.target.parentElement.parentElement.remove()
@@ -171,11 +186,12 @@ function deleteItem(e) {
         console.log(idQues)
         questionsAndAnswers.splice(idQues,1)
         localStorage.setItem('local' , JSON.stringify(questionsAndAnswers))
+        refrshId()
+
+        countAddQ-=1
+
     }
 }
-
-
-
 
 function getRightAnswer(index) {
     indexWrightAnswer.push(index)
@@ -190,11 +206,8 @@ function checkWrongAnswers(wrong) {
 
 //////////////// VIEW QUIZ /////////////////////
 
-
-function viewQuiz() {
-    checkWrongAnswers()
-
-    for (i = 0; i < questionsAndAnswers.length; i++) {
+function clearViewQuiz(){
+    for (i = 0; i < storageDataViewQuiz.length; i++) {
         let ul = document.createElement("div")
         ul.className = "ul-ViewsAnswers"
         ul.style.color = "white"
@@ -209,11 +222,38 @@ function viewQuiz() {
         li_c.className = "li-answer"
         let li_d = document.createElement("li")
         li_d.className = "li-answer"
-        h3.textContent = questionsAndAnswers[i].question
-        li_a.textContent = questionsAndAnswers[i].a
-        li_b.textContent = questionsAndAnswers[i].b
-        li_c.textContent = questionsAndAnswers[i].c
-        li_d.textContent = questionsAndAnswers[i].d
+        h3.textContent = storageDataViewQuiz[i].question
+        li_a.textContent = storageDataViewQuiz[i].a
+        li_b.textContent = storageDataViewQuiz[i].b
+        li_c.textContent = storageDataViewQuiz[i].c
+        li_d.textContent = storageDataViewQuiz[i].d
+    }
+}
+
+
+function viewQuiz() {
+    checkWrongAnswers()
+
+    for (i = 0; i < storageDataViewQuiz.length; i++) {
+        let ul = document.createElement("div")
+        ul.className = "ul-ViewsAnswers"
+        ul.style.color = "white"
+        let h3 = document.createElement("h3")
+        h3.id = "viewQ"
+        h3.style.color = "black"
+        let li_a = document.createElement("li")
+        li_a.className = "li-answer"
+        let li_b = document.createElement("li")
+        li_b.className = "li-answer"
+        let li_c = document.createElement("li")
+        li_c.className = "li-answer"
+        let li_d = document.createElement("li")
+        li_d.className = "li-answer"
+        h3.textContent = storageDataViewQuiz[i].question
+        li_a.textContent = storageDataViewQuiz[i].a
+        li_b.textContent = storageDataViewQuiz[i].b
+        li_c.textContent = storageDataViewQuiz[i].c
+        li_d.textContent = storageDataViewQuiz[i].d
         ///////////// CHECK GOOD ANSWER ////////////
         for (u of indexWrightAnswer) {
             if (u === i) {
@@ -223,18 +263,18 @@ function viewQuiz() {
 
         // ////////////////////////////////////////
         // check good answer
-        if (questionsAndAnswers[i].correct == "a") {
-            console.log("fsdfdfsd", questionsAndAnswers[i].correct);
+        if (storageDataViewQuiz[i].correct == "a") {
+            console.log("fsdfdfsd", storageDataViewQuiz[i].correct);
             li_a.style.backgroundColor = "green"
 
-        } else if (questionsAndAnswers[i].correct == "b") {
+        } else if (storageDataViewQuiz[i].correct == "b") {
 
             li_b.style.backgroundColor = "green"
 
-        } else if (questionsAndAnswers[i].correct == "c") {
+        } else if (storageDataViewQuiz[i].correct == "c") {
             li_c.style.backgroundColor = "green"
 
-        } else if (questionsAndAnswers[i].correct == "d") {
+        } else if (storageDataViewQuiz[i].correct == "d") {
             li_d.style.backgroundColor = "green"
         }
 
@@ -246,13 +286,13 @@ function viewQuiz() {
                 li_a.style.backgroundColor = "red"
                 console.log("showa", wrongAnswers[i].id);
 
-            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'b') {
+            } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'b') {
                 li_b.style.backgroundColor = "red"
                 console.log("showb", wrongAnswers[i].id);
-            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'c') {
+            } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'c') {
                 li_c.style.backgroundColor = "red"
                 console.log("showc", wrongAnswers[i].id);
-            } else if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'd') {
+            } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'd') {
                 li_d.style.backgroundColor = "red"
                 console.log("showd", wrongAnswers[i].id);
             }
@@ -275,7 +315,7 @@ function viewQuiz() {
 
 function loadQuiz() {
     deSelected()
-    console.log('hi')
+    let getData={}
     if (questionsAndAnswers.length > 0) {
         const currentQuizData = questionsAndAnswers[currentQuizIndex]
         questionEl.textContent = currentQuizData.question
@@ -283,6 +323,14 @@ function loadQuiz() {
         b_text.textContent = currentQuizData.b
         c_text.textContent = currentQuizData.c
         d_text.textContent = currentQuizData.d
+
+        getData.question = currentQuizData.question
+        getData.a = currentQuizData.a
+        getData.b = currentQuizData.b
+        getData.c = currentQuizData.c
+        getData.d = currentQuizData.d
+        getData.correct = currentQuizData.correct
+        storageDataViewQuiz.push(getData)
     }
 }
 
@@ -326,9 +374,12 @@ submitBtn.addEventListener('click', () => {
         } else {
             btn_viewsQuizes.classList.remove("hide")
             viewQuizs.style.display = 'block'
+            
+            quiz.style.display='none'
             btn_viewsQuizes.style.display = 'block'
+            
             document.getElementById("totalScore").textContent = questionsAndAnswers.length * 20
-            //    quiz.innerHTML=""
+            
         }
 
     } else {
@@ -347,14 +398,12 @@ function createQuestion(e){
     e.preventDefault()
     if_empty()
     if(input_All){
-        saveQuestions();
-        loadQuestions();
-        const divShowQuestion=document.createElement('div')
+        
+        const divShowQuestion=document.createElement('div') 
         divShowQuestion.className='div_showQuestion'
-        for(let i=0; i<questionsAndAnswers.length; i++){
-            divShowQuestion.id=i
-            console.log(i) 
-        }
+       
+        // divShowQuestion.id=countAddQ
+        
         
         const showQuestion=document.createElement('div')
         showQuestion.className='show-que'
@@ -386,7 +435,7 @@ function createQuestion(e){
         contShowQus.appendChild(divShowQuestion);
         img_dele.addEventListener("click",deleteItem)
 
-        
+        refrshId()
         countAddQ++
         
 
@@ -397,8 +446,6 @@ function createQuestion(e){
 // ------------------------------------------------------------------------
 //      MAIN
 // ------------------------------------------------------------------------
-
-
 
 // EDIT QUIZ   VIEW - ------------------------------------------------------------------------------
 
@@ -421,27 +468,19 @@ const get_A = document.querySelectorAll(".form-control");
 const clickOnMenuQuiz = document.getElementById('quize-bar')
 clickOnMenuQuiz.addEventListener('click', onClickOnQuiz)
 
-
 const clickOnBtnStartQuiz = document.getElementById('btn-start')
 clickOnBtnStartQuiz.addEventListener('click', onClickOnStartQuiz)
-
-
 
 const containerFormShowQuestion = document.querySelector('.container-form-showQuestion')
 const clickOnBtnCreate = document.getElementById('create-bar')
 clickOnBtnCreate.addEventListener('click', displayCreateForm)
 
-
 const btn_next = document.querySelector(".next");
 btn_next.addEventListener("click", createQuestion)
-
-
-
 
 const div_showQuestion = document.querySelector(".div_showQuestion")
 
 const btn_viewsQuizes = document.getElementById("viewAll-answer")
-
 
 let firstClick=true
 btn_viewsQuizes.addEventListener("click", function () {
@@ -450,8 +489,6 @@ btn_viewsQuizes.addEventListener("click", function () {
         firstClick=false
     }
 })
-
-
 
 // PLAY QUIZ   VIEW ------------------------------------------------------------------------------
 const quiz = document.getElementById('quiz')
