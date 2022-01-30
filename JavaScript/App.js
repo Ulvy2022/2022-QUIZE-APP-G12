@@ -16,12 +16,7 @@ let indexWrightAnswer = []
 let wrongAnswers = []
 let input_All=false
 let countAddQ=0
-<<<<<<< HEAD
 let storageDataViewQuiz=[]
-=======
-var storageDataViewQuiz=[]
-
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
 
 // ------------------------------------------------------------------------
 //      FUNCTIONS
@@ -50,7 +45,6 @@ function onClickOnQuiz() {
         hide(quiz)
         hide(viewQuizs)
         show(start_quiz)
-<<<<<<< HEAD
         currentQuizIndex=0
         score=0
         getscore.textContent = score
@@ -58,11 +52,6 @@ function onClickOnQuiz() {
         
         loadQuiz()
 
-=======
-        score = 0
-        currentQuizIndex = 0
-        desClearViewQuiz()
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
     }
 }
 
@@ -130,11 +119,7 @@ function if_empty() {
     }
 
 }
-<<<<<<< HEAD
  
-=======
-
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
 function saveQuestions() {
     localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
     input_All=true
@@ -230,16 +215,7 @@ function desClearViewQuiz(){
     loadQuiz()
 }
 
-<<<<<<< HEAD
 function clearViewQuiz(){
-=======
-
-//////////////// VIEW QUIZ /////////////////////
-
-function viewQuiz() {
-    checkWrongAnswers()
-    console.log("gotData",storageDataViewQuiz)
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
     for (i = 0; i < storageDataViewQuiz.length; i++) {
         let ul = document.createElement("div")
         ul.className = "ul-ViewsAnswers"
@@ -260,7 +236,6 @@ function viewQuiz() {
         li_b.textContent = storageDataViewQuiz[i].b
         li_c.textContent = storageDataViewQuiz[i].c
         li_d.textContent = storageDataViewQuiz[i].d
-<<<<<<< HEAD
     }
 }
 
@@ -288,8 +263,6 @@ function viewQuiz() {
         li_b.textContent = storageDataViewQuiz[i].b
         li_c.textContent = storageDataViewQuiz[i].c
         li_d.textContent = storageDataViewQuiz[i].d
-=======
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         ///////////// CHECK GOOD ANSWER ////////////
 
         for (u of indexWrightAnswer) {
@@ -298,12 +271,9 @@ function viewQuiz() {
             }
         }
 
-<<<<<<< HEAD
         // ////////////////////////////////////////
         // check good answer
-=======
         // ////////////// CHECK GOOD ANSWER ///////////////////
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         if (storageDataViewQuiz[i].correct == "a") {
             console.log("fsdfdfsd", storageDataViewQuiz[i].correct);
             li_a.style.backgroundColor = "green"
@@ -326,15 +296,6 @@ function viewQuiz() {
             if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'a') {
                 li_a.style.backgroundColor = "red"
 
-<<<<<<< HEAD
-            } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'b') {
-                li_b.style.backgroundColor = "red"
-                console.log("showb", wrongAnswers[i].id);
-            } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'c') {
-                li_c.style.backgroundColor = "red"
-                console.log("showc", wrongAnswers[i].id);
-            } if (wrongAnswers[i].index === i && wrongAnswers[i].id == 'd') {
-=======
             }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'b') {
                 li_b.style.backgroundColor = "red"
                
@@ -342,7 +303,6 @@ function viewQuiz() {
                 li_c.style.backgroundColor = "red"
                
             }if (wrongAnswers[i].getIndex === i && wrongAnswers[i].getId == 'd') {
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
                 li_d.style.backgroundColor = "red"
                 
             }
@@ -373,10 +333,7 @@ function loadQuiz() {
         b_text.textContent = currentQuizData.b
         c_text.textContent = currentQuizData.c
         d_text.textContent = currentQuizData.d
-<<<<<<< HEAD
 
-=======
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         getData.question = currentQuizData.question
         getData.a = currentQuizData.a
         getData.b = currentQuizData.b
@@ -432,11 +389,8 @@ submitBtn.addEventListener('click', () => {
             btn_viewsQuizes.style.display = 'block'
             
             document.getElementById("totalScore").textContent = questionsAndAnswers.length * 20
-<<<<<<< HEAD
             
-=======
            
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         }
 
     } else {
@@ -458,14 +412,9 @@ function createQuestion(e){
         
         const divShowQuestion=document.createElement('div') 
         divShowQuestion.className='div_showQuestion'
-<<<<<<< HEAD
        
         // divShowQuestion.id=countAddQ
         
-=======
-    
-        divShowQuestion.id=countAddQ
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         
         const showQuestion=document.createElement('div')
         showQuestion.className='show-que'
@@ -495,10 +444,7 @@ function createQuestion(e){
         contShowQus.appendChild(divShowQuestion);
         img_dele.addEventListener("click",deleteItem)
 
-<<<<<<< HEAD
         refrshId()
-=======
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
         countAddQ++
         
 
@@ -510,10 +456,7 @@ function createQuestion(e){
 //      MAIN
 // ------------------------------------------------------------------------
 
-<<<<<<< HEAD
-=======
 
->>>>>>> e51658f360cbb155f5054d4b62d1d313e5db0e03
 // EDIT QUIZ   VIEW - ------------------------------------------------------------------------------
 
 const start_quiz = document.getElementById('start_quiz')
