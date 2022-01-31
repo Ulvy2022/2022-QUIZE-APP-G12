@@ -8,7 +8,6 @@
 //      VARIABLES
 // ------------------------------------------------------------------------
 
-// the array contain all the question and the player answwer
 let questionsAndAnswers = []
 let score = 0
 let currentQuizIndex = 0
@@ -56,26 +55,16 @@ function onClickOnQuiz() {
 }
 
 function onClickOnStartQuiz() {
-    // Show the  quiz 
     hide(start_quiz)
     hide(containerFormShowQuestion)
     hide(btn_viewsQuizes)
     show(quiz)
 }
 
+///==============================================================================
+// CHECK AND VALIDITION INPUT 
 
-// click on btn create to show create-form and hide all
-function displayCreateForm() {
-    hide(start_quiz)
-    hide(viewQuizs)
-    hide(btn_viewsQuizes)
-    hide(quiz)
-    hide(banner)
-    show(containerFormShowQuestion)
-}
 
-// alert if emtyp input
-// sweet alert
 function inputAll() {
     swal.fire({
         position: 'center',
@@ -88,7 +77,6 @@ function inputAll() {
     addQuestion();
 }
 
-/////////// ALERT IF SOME INPUT NOTHING ////////////
 function ifEmpty() {
     swal.fire({
         icon: 'error',
@@ -112,55 +100,24 @@ function if_empty() {
     if (getA1 == "" || getA2 == "" || getA3 == "" || getA4 == "" || correctAnswer == "" || get_Q == "") {
         ifEmpty();
         
-        
     }
     else {
         inputAll();
     }
 
 }
- 
-function saveQuestions() {
-    localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
-    input_All=true
+// ====================================================================================================
+/// QUESTION 
+
+function displayCreateForm() {
+    hide(start_quiz)
+    hide(viewQuizs)
+    hide(btn_viewsQuizes)
+    hide(quiz)
+    hide(banner)
+    show(containerFormShowQuestion)
 }
 
-function loadQuestions() {
-    questionsAndAnswers = JSON.parse(localStorage.getItem("local"))
-}
-
-///////////////// EDIT QUESTION ////////////////
-
-function displayEditQuestions() {
-    
-}
-
-function addQuestion() {
-
-    // 1 - create new question
-    
-        let getA1 = document.getElementById("a1").value;
-        let getA2 = document.getElementById("a2").value;
-        let getA3 = document.getElementById("a3").value;
-        let getA4 = document.getElementById("a4").value;
-        let get_Q = document.getElementById("Que").value;
-        let correctAnswer = document.getElementById("correct_Ans").value;
-        let newQuestion = { question: get_Q, a: getA1, b: getA2, c: getA3, d: getA4, correct: correctAnswer.toLowerCase() };
-    
-        // 2 - add this new question
-        questionsAndAnswers.push(newQuestion);
-    
-        // 3 - save to local storage
-        saveQuestions();
-    
-        // 4 - Clear from
-        clearForm()
-    
-        // Diplay question
-        displayEditQuestions();
-    
-   
-}
 
 function clearForm() {
     document.getElementById("a1").value = "";
@@ -171,6 +128,35 @@ function clearForm() {
     document.getElementById("correct_Ans").value = "";
 }
 
+
+function saveQuestions() {
+    localStorage.setItem("local", JSON.stringify(questionsAndAnswers));
+    input_All=true
+}
+function addQuestion() {
+        let getA1 = document.getElementById("a1").value;
+        let getA2 = document.getElementById("a2").value;
+        let getA3 = document.getElementById("a3").value;
+        let getA4 = document.getElementById("a4").value;
+        let get_Q = document.getElementById("Que").value;
+        let correctAnswer = document.getElementById("correct_Ans").value;
+        let newQuestion = { question: get_Q, a: getA1, b: getA2, c: getA3, d: getA4, correct: correctAnswer.toLowerCase() };
+        // 1 - add this new question
+        questionsAndAnswers.push(newQuestion);
+        // 2 - save to local storage
+        saveQuestions();
+        // 3 - Clear from
+        clearForm()
+}
+
+function loadQuestions() {
+    questionsAndAnswers = JSON.parse(localStorage.getItem("local"))
+}
+
+// function displayEditQuestions() {
+    
+// }
+
 function refrshId(){
     let id=0
     let div_showQuestion=document.getElementsByClassName('div_showQuestion')
@@ -178,7 +164,6 @@ function refrshId(){
         item.id=id
         id++
     }
-
 }
 
 function deleteItem(e) {
@@ -215,34 +200,8 @@ function desClearViewQuiz(){
     loadQuiz()
 }
 
-function clearViewQuiz(){
-    for (i = 0; i < storageDataViewQuiz.length; i++) {
-        let ul = document.createElement("div")
-        ul.className = "ul-ViewsAnswers"
-        ul.style.color = "white"
-        let h3 = document.createElement("h3")
-        h3.id = "viewQ"
-        h3.style.color = "black"
-        let li_a = document.createElement("li")
-        li_a.className = "li-answer"
-        let li_b = document.createElement("li")
-        li_b.className = "li-answer"
-        let li_c = document.createElement("li")
-        li_c.className = "li-answer"
-        let li_d = document.createElement("li")
-        li_d.className = "li-answer"
-        h3.textContent = storageDataViewQuiz[i].question
-        li_a.textContent = storageDataViewQuiz[i].a
-        li_b.textContent = storageDataViewQuiz[i].b
-        li_c.textContent = storageDataViewQuiz[i].c
-        li_d.textContent = storageDataViewQuiz[i].d
-    }
-}
-
-
 function viewQuiz() {
     checkWrongAnswers()
-
     for (i = 0; i < storageDataViewQuiz.length; i++) {
         let ul = document.createElement("div")
         ul.className = "ul-ViewsAnswers"
@@ -321,8 +280,6 @@ function viewQuiz() {
 }
 
 /////////// FUNCTION DISPLAY QUIZ /////////////
-
-
 function loadQuiz() {
     deSelected()
     let getData={}
@@ -360,10 +317,10 @@ function getSelected() {
 function deSelected() {
     answerEls.forEach(answerEl => answerEl.checked = false)
 }
-
+//============================================================================================
 ////////// CHECK BUTTON SUBMIT /////////////////
-const submitBtn = document.getElementById('submit')
-submitBtn.addEventListener('click', () => {
+const submitBtnQuestion = document.getElementById('submit')
+submitBtnQuestion.addEventListener('click', () => {
     const answer = getSelected()
     let getWrongAnswer = {}
     if (answer) {
@@ -371,14 +328,12 @@ submitBtn.addEventListener('click', () => {
             score += 20
             getscore.textContent = score
             getRightAnswer(currentQuizIndex)
-
-        } else if (answer != questionsAndAnswers[currentQuizIndex].answer) {
+        } else if (answer != questionsAndAnswers[currentQuizIndex].correct) {
             getWrongAnswer.getIndex = currentQuizIndex
             getWrongAnswer.getId = answer
             checkWrongAnswers(getWrongAnswer)
         }
         currentQuizIndex++
-
         if (currentQuizIndex < questionsAndAnswers.length) {
             loadQuiz()
         } else {
@@ -390,7 +345,6 @@ submitBtn.addEventListener('click', () => {
             
             document.getElementById("totalScore").textContent = questionsAndAnswers.length * 20
             
-           
         }
 
     } else {
